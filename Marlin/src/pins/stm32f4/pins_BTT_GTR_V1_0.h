@@ -86,11 +86,11 @@
   #define Y_CS_PIN                          PE1
 #endif
 
-#define Z_STEP_PIN                          PB8
-#define Z_DIR_PIN                           PB7   // PB7
-#define Z_ENABLE_PIN                        PB9
-#ifndef Z_CS_PIN
-  #define Z_CS_PIN                          PB5
+#define Z2_STEP_PIN                          PB8 //BAK switched because cable length but needed this motor to be in  back left first, front left second
+#define Z2_DIR_PIN                           PB7   // PB7
+#define Z2_ENABLE_PIN                        PB9
+#ifndef Z2_CS_PIN
+  #define Z2_CS_PIN                          PB5
 #endif
 
 #define E0_STEP_PIN                         PG12
@@ -100,18 +100,18 @@
   #define E0_CS_PIN                         PG10
 #endif
 
-#define E1_STEP_PIN                         PD6
-#define E1_DIR_PIN                          PD5
-#define E1_ENABLE_PIN                       PD7
-#ifndef E1_CS_PIN
-  #define E1_CS_PIN                         PD4
+#define Z_STEP_PIN        PD6 //BAK works
+#define Z_DIR_PIN         PD5
+#define Z_ENABLE_PIN      PD7
+#ifndef Z_CS_PIN
+  #define Z_CS_PIN        PD4
 #endif
 
-#define E2_STEP_PIN                         PD1
-#define E2_DIR_PIN                          PD0
-#define E2_ENABLE_PIN                       PD2
-#ifndef E2_CS_PIN
-  #define E2_CS_PIN                         PC12
+#define Z3_STEP_PIN        PD1 //BAK works
+#define Z3_DIR_PIN         PD0
+#define Z3_ENABLE_PIN      PD2
+#ifndef Z3_CS_PIN
+  #define Z3_CS_PIN        PC12
 #endif
 
 #define E3_STEP_PIN                         PF3
@@ -262,21 +262,21 @@
 #define HEATER_1_PIN                        PA1   // Heater1
 #define HEATER_2_PIN                        PB0   // Heater2
 
-#define HEATER_3_PIN                        PD15  // Heater3
-#define HEATER_4_PIN                        PD13  // Heater4
-#define HEATER_5_PIN                        PD12  // Heater5
-#define HEATER_6_PIN                        PE13  // Heater6
-#define HEATER_7_PIN                        PI6   // Heater7
+//#define HEATER_3_PIN                        PD15  // Heater3 BAK
+//#define HEATER_4_PIN                        PD13  // Heater4 BAK
+//#define HEATER_5_PIN                        PD12  // Heater5 BAK
+//#define HEATER_6_PIN                        PE13  // Heater6 BAK
+//#define HEATER_7_PIN                        PI6   // Heater7 BAK
 
 #define HEATER_BED_PIN                      PA2   // Hotbed
 
-#define FAN_PIN                             PE5   // Fan0
-#define FAN1_PIN                            PE6   // Fan1
-#define FAN2_PIN                            PC8   // Fan2
+#define FAN_PIN            PE5   // Fan0 
+#define FAN1_PIN           PE6   // Fan1 
+#define FAN2_PIN           PC8   // Fan2
 
-#define FAN3_PIN                            PI5   // Fan3
-#define FAN4_PIN                            PE9   // Fan4
-#define FAN5_PIN                            PE11  // Fan5
+//#define FAN3_PIN                            PI5   // Fan3
+//#define FAN4_PIN                            PE9   // Fan4
+//#define FAN5_PIN                            PE11  // Fan5
 //#define FAN6_PIN                          PC9   // Fan6
 //#define FAN7_PIN                          PE14  // Fan7
 

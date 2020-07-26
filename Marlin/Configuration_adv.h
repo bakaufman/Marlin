@@ -2288,7 +2288,7 @@
   #define INTERPOLATE      true
 
   #if AXIS_IS_TMC(X)
-    #define X_CURRENT       800       // (mA) RMS current. Multiply by 1.414 for peak current 1400 from railcore. 990, 1280
+    #define X_CURRENT       1280       // (mA) RMS current. Multiply by 1.414 for peak current 1400 from railcore. 800, 990, 1280
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS     16        // 0..256
     #define X_RSENSE          0.11
@@ -2306,7 +2306,7 @@
   #endif
 
   #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       800 //BAK trying to stop layer shifts 740. 990, 1280
+    #define Y_CURRENT       1280 //BAK trying to stop layer shifts 740, 800, 990, 1280
     #define Y_CURRENT_HOME  Y_CURRENT
     #define Y_MICROSTEPS     16
     #define Y_RSENSE          0.11
@@ -2324,7 +2324,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       800 //BAK calc 707. 1220
+    #define Z_CURRENT       1220 //BAK calc 707. 800, 1220
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS     16
     #define Z_RSENSE          0.11
@@ -2333,7 +2333,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z2)
-    #define Z2_CURRENT      800    //BAK calc 707. 1220 
+    #define Z2_CURRENT      1220   //BAK calc 707. 1220 
     #define Z2_CURRENT_HOME Z2_CURRENT
     #define Z2_MICROSTEPS    16
     #define Z2_RSENSE         0.11
@@ -2342,7 +2342,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z3)
-    #define Z3_CURRENT      800    //BAK calc 707. 1220 
+    #define Z3_CURRENT      1220    //BAK calc 707. 1220 
     #define Z3_CURRENT_HOME Z3_CURRENT
     #define Z3_MICROSTEPS    16
     #define Z3_RSENSE         0.11
@@ -2360,7 +2360,7 @@
   #endif
 
   #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT      800       // BAK (1250/1.414). 680, 860 
+    #define E0_CURRENT      860       // BAK (1250/1.414). 680, 860 
     #define E0_MICROSTEPS    16
     #define E0_RSENSE         0.11
     #define E0_CHAIN_POS     -1

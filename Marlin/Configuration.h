@@ -481,9 +481,9 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
   // Creality Ender-3
-#define DEFAULT_Kp 15.01 //BAK
-#define DEFAULT_Ki 1.10 //BAK
-#define DEFAULT_Kd 51.13 //BAK
+#define DEFAULT_Kp 28.8 //BAK 20200728
+#define DEFAULT_Ki 3.04 //BAK
+#define DEFAULT_Kd 68.11 //BAK
 
   // Ultimaker
   //#define DEFAULT_Kp 22.2
@@ -538,9 +538,9 @@
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
 //Creality Ender-3 pro BAK
-  #define DEFAULT_bedKp 67.62 //BAK
-  #define DEFAULT_bedKi 13.18 //BAK
-  #define DEFAULT_bedKd 231.28 //BAK
+  #define DEFAULT_bedKp 146.53 //BAK 20200728
+  #define DEFAULT_bedKi 27.28 //BAK
+  #define DEFAULT_bedKd 524.68 //BAK
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
@@ -976,6 +976,7 @@
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
+#define PROBING_MARGIN 10 //BAK
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 6000 //BAK 8000
@@ -1116,7 +1117,7 @@
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 190 //BAK
+#define Z_MAX_POS 195 //BAK
 
 /**
  * Software Endstops

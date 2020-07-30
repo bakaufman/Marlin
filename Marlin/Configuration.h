@@ -988,7 +988,7 @@
 #define PROBING_MARGIN 10
 
 // X and Y axis travel speed (mm/m) between probes
-#define XY_PROBE_SPEED 5000 //BAK 8000 default 3600,4000, 5000, 6000 a little noisy works
+#define XY_PROBE_SPEED 5500 //BAK 8000 default 3600,4000, 5000, 6000 a little noisy works
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
@@ -1428,8 +1428,8 @@
 #endif
 
 // Homing speeds (mm/m)
-#define HOMING_FEEDRATE_XY (40*60) //BAK (50*60)
-#define HOMING_FEEDRATE_Z  (4*60) //BAK (4*60)
+#define HOMING_FEEDRATE_XY (50*60) //BAK (50*60, 40*60))
+#define HOMING_FEEDRATE_Z  (5*60) //BAK (4*60)
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS

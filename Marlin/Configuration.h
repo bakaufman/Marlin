@@ -756,7 +756,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1500, 1500, 100, 5000 } //BAK
+#define DEFAULT_MAX_ACCELERATION      { 1500, 1500, 100, 2000 } //BAK
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -773,7 +773,7 @@
  */
 #define DEFAULT_ACCELERATION          500    // X, Y, Z and E acceleration for printing moves BAK
 #define DEFAULT_RETRACT_ACCELERATION  500    // E acceleration for retracts BAK
-#define DEFAULT_TRAVEL_ACCELERATION   500    // X, Y, Z acceleration for travel (non printing) moves BAK
+#define DEFAULT_TRAVEL_ACCELERATION   1000   // X, Y, Z acceleration for travel (non printing) moves BAK
 
 /**
  * Default Jerk limits (mm/s)
@@ -972,11 +972,11 @@
  *
  * Specify a Probe position as { X, Y, Z }
  */
-#define NOZZLE_TO_PROBE_OFFSET { 43, 0, -1.0 } //BAK
+#define NOZZLE_TO_PROBE_OFFSET { 43, 0, -1.5 } //BAK
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 10 //BAK
+#define PROBING_MARGIN 15 //BAK
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 6000 //BAK 8000

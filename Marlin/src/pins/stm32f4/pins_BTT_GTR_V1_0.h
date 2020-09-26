@@ -114,40 +114,40 @@
   #define Z3_CS_PIN        PC12
 #endif
 
-#define E3_STEP_PIN                         PF3
-#define E3_DIR_PIN                          PG3
-#define E3_ENABLE_PIN                       PF8
-#ifndef E3_CS_PIN
-  #define E3_CS_PIN                         PG4
+#define E1_STEP_PIN                         PF3 //BAK E3 for set, jumper out
+#define E1_DIR_PIN                          PG3
+#define E1_ENABLE_PIN                       PF8
+#ifndef E1_CS_PIN
+  #define E1_CS_PIN                         PG4
 #endif
 
-#define E4_STEP_PIN                         PD14
-#define E4_DIR_PIN                          PD11
-#define E4_ENABLE_PIN                       PG2
-#ifndef E4_CS_PIN
-  #define E4_CS_PIN                         PE15
-#endif
+//#define E4_STEP_PIN                         PD14
+//#define E4_DIR_PIN                          PD11
+//#define E4_ENABLE_PIN                       PG2
+//#ifndef E4_CS_PIN
+//  #define E4_CS_PIN                         PE15
+//#endif
 
-#define E5_STEP_PIN                         PE12
-#define E5_DIR_PIN                          PE10
-#define E5_ENABLE_PIN                       PF14
-#ifndef E5_CS_PIN
-  #define E5_CS_PIN                         PE7
-#endif
+//#define E5_STEP_PIN                         PE12
+//#define E5_DIR_PIN                          PE10
+//#define E5_ENABLE_PIN                       PF14
+//#ifndef E5_CS_PIN
+//  #define E5_CS_PIN                         PE7
+//#endif
 
-#define E6_STEP_PIN                         PG0
-#define E6_DIR_PIN                          PG1
-#define E6_ENABLE_PIN                       PE8
-#ifndef E6_CS_PIN
-  #define E6_CS_PIN                         PF15
-#endif
+//#define E6_STEP_PIN                         PG0
+//#define E6_DIR_PIN                          PG1
+//#define E6_ENABLE_PIN                       PE8
+//#ifndef E6_CS_PIN
+//  #define E6_CS_PIN                         PF15
+//#endif
 
-#define E7_STEP_PIN                         PH12
-#define E7_DIR_PIN                          PH15
-#define E7_ENABLE_PIN                       PI0
-#ifndef E7_CS_PIN
-  #define E7_CS_PIN                         PH14
-#endif
+//#define E7_STEP_PIN                         PH12
+//#define E7_DIR_PIN                          PH15
+//#define E7_ENABLE_PIN                       PI0
+//#ifndef E7_CS_PIN
+//  #define E7_CS_PIN                         PH14
+//#endif
 
 //
 // Software SPI pins for TMC2130 stepper drivers
@@ -414,28 +414,3 @@
 #endif // HAS_WIRED_LCD
 
 #undef TP
-//
-// BTT EXP-MOT V1.0
-//
-//M1
-#define E8_STEP_PIN        PB15
-#define E8_DIR_PIN          PH10
-#define E8_ENABLE_PIN   PB10
-#ifndef E8_CS_PIN
-  #define E8_CS_PIN          PG7
-#endif
-//M2
-#define E9_STEP_PIN         PD10
-#define E9_DIR_PIN           PB12
-#define E9_ENABLE_PIN    PG5
-#ifndef E9_CS_PIN
-  #define E9_CS_PIN           PA8
-#endif
-//M3
-#define E10_STEP_PIN          PB14
-#define E10_DIR_PIN            PB13
-#define E10_ENABLE_PIN      PG6
-#ifndef E10_CS_PIN
-  #define E10_CS_PIN            PA15
-#endif
-//

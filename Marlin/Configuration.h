@@ -132,7 +132,7 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Railcore ZL"
+#define CUSTOM_MACHINE_NAME "Railcore Dual ZL"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -748,7 +748,7 @@
  * following movement settings. If fewer factors are given than the
  * total number of extruders, the last value applies to the rest.
  */
-//#define DISTINCT_E_FACTORS
+#define DISTINCT_E_FACTORS //BAK until I get another BMG running
 
 /**
  * Default Axis Steps Per Unit (steps/mm)
@@ -2039,7 +2039,7 @@
 // RepRapDiscount FULL GRAPHIC Smart Controller
 // https://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
 //
-#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER //BAK for TFT Can I do CR10?
+#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER //BAK for TFT C
 
 //
 // ReprapWorld Graphical LCD

@@ -414,3 +414,28 @@
 #endif // HAS_WIRED_LCD
 
 #undef TP
+//
+// BTT EXP-MOT V1.0
+//
+//M1
+#define E8_STEP_PIN        PB15
+#define E8_DIR_PIN          PH10
+#define E8_ENABLE_PIN   PB10
+#ifndef E8_CS_PIN
+  #define E8_CS_PIN          PG7
+#endif
+//M2
+#define E9_STEP_PIN         PD10
+#define E9_DIR_PIN           PB12
+#define E9_ENABLE_PIN    PG5
+#ifndef E9_CS_PIN
+  #define E9_CS_PIN           PA8
+#endif
+//M3
+#define E10_STEP_PIN          PB14
+#define E10_DIR_PIN            PB13
+#define E10_ENABLE_PIN      PG6
+#ifndef E10_CS_PIN
+  #define E10_CS_PIN            PA15
+#endif
+//

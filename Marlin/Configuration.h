@@ -136,7 +136,7 @@
 
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
-#define CUSTOM_MACHINE_NAME "M2F"
+#define CUSTOM_MACHINE_NAME "M2Fv3"
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -878,10 +878,10 @@
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS -4 //BAK M2F
 #define Y_MIN_POS 0
-#define Z_MIN_POS 0
+#define Z_MIN_POS -5
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 200 //BAK M2F
+#define Z_MAX_POS 210 //BAK M2F
 
 /**
  * Software Endstops
@@ -893,7 +893,7 @@
  */
 
 // Min software endstops constrain movement within minimum coordinate bounds
-#define MIN_SOFTWARE_ENDSTOPS
+#define MIN_SOFTWARE_ENDSTOPS //BAK M2F
 #if ENABLED(MIN_SOFTWARE_ENDSTOPS)
   #define MIN_SOFTWARE_ENDSTOP_X
   #define MIN_SOFTWARE_ENDSTOP_Y
@@ -901,7 +901,7 @@
 #endif
 
 // Max software endstops constrain movement within maximum coordinate bounds
-#define MAX_SOFTWARE_ENDSTOPS
+#define MAX_SOFTWARE_ENDSTOPS //BAK M2F
 #if ENABLED(MAX_SOFTWARE_ENDSTOPS)
   #define MAX_SOFTWARE_ENDSTOP_X
   #define MAX_SOFTWARE_ENDSTOP_Y
@@ -1122,9 +1122,9 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-#define MANUAL_X_HOME_POS 0 //BAK from M2F
-#define MANUAL_Y_HOME_POS 0 //BAK from M2F
-#define MANUAL_Z_HOME_POS 0 //BAK from M2F
+//#define MANUAL_X_HOME_POS 0 //BAK from M2F but removed
+//#define MANUAL_Y_HOME_POS 0 //BAK from M2F but removed
+//#define MANUAL_Z_HOME_POS 0 //BAK from M2F but removed
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
 //
@@ -1268,7 +1268,7 @@
  *    P1  Raise the nozzle always to Z-park height.
  *    P2  Raise the nozzle by Z-park amount, limited to Z_MAX_POS.
  */
-//#define NOZZLE_PARK_FEATURE
+#define NOZZLE_PARK_FEATURE
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z }
@@ -1410,7 +1410,7 @@
  *
  * :['JAPANESE', 'WESTERN', 'CYRILLIC']
  */
-#define DISPLAY_CHARSET_HD44780 JAPANESE
+#define DISPLAY_CHARSET_HD44780 WESTERN //BAK makes sense
 
 /**
  * LCD TYPE
@@ -1489,7 +1489,7 @@
 //
 //  Set this option if CLOCKWISE causes values to DECREASE
 //
-//#define REVERSE_ENCODER_DIRECTION
+#define REVERSE_ENCODER_DIRECTION //BAK to increase numbers clockwise
 
 //
 // This option reverses the encoder direction for navigating LCD menus.
@@ -1497,7 +1497,7 @@
 //  If CLOCKWISE normally moves DOWN this makes it go UP.
 //  If CLOCKWISE normally moves UP this makes it go DOWN.
 //
-//#define REVERSE_MENU_DIRECTION
+#define REVERSE_MENU_DIRECTION //BAK trying to make encoder make sense
 
 //
 // Individual Axis Homing

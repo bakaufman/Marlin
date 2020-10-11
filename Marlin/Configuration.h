@@ -132,7 +132,7 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Railcore ZL"
+#define CUSTOM_MACHINE_NAME "Railcore Single Nozzle ZL"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -1117,15 +1117,15 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 300 //BAK from railcore.org - check
-#define Y_BED_SIZE 300
+#define X_BED_SIZE 290 //BAK from railcore.org - check
+#define Y_BED_SIZE 290
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
 #define Z_MIN_POS -4 //BAK
-#define X_MAX_POS 300 //BAK
-#define Y_MAX_POS 300 //BAK
+#define X_MAX_POS X_BED_SIZE //BAK
+#define Y_MAX_POS Y_BED_SIZE //BAK
 #define Z_MAX_POS 280
 
 /**

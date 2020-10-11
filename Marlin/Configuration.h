@@ -1136,8 +1136,8 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 300 //BAK from railcore.org - check
-#define Y_BED_SIZE 300
+#define X_BED_SIZE 290 //BAK from railcore.org - check needs more verification
+#define Y_BED_SIZE 290
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0

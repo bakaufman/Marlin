@@ -1357,7 +1357,7 @@
    *
    * :[ 'LCD', 'ONBOARD', 'CUSTOM_CABLE' ]
    */
-  //#define SDCARD_CONNECTION LCD
+  #define SDCARD_CONNECTION ONBOARD //BAK added to enable RPI-mediated update
 
 #endif // SDSUPPORT
 

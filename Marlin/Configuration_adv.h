@@ -746,7 +746,7 @@
   // Define probe X and Y positions for Z1, Z2 [, Z3 [, Z4]]
   // If not defined, probe limits will be used.
   // Override with 'M422 S<index> X<pos> Y<pos>'
-  //#define Z_STEPPER_ALIGN_XY { { 10, 277.5 }, { 10, 47.5 }, { 280, 150 } }//BAK trying to see if limits work
+  //#define Z_STEPPER_ALIGN_XY { { 1, 277.5 }, { 1, 47.5 }, { 290, 150 } }//BAK trying to see if limits work
 
   /**
    * Orientation for the automatically-calculated probe positions.
@@ -778,7 +778,7 @@
     // Define Stepper XY positions for Z1, Z2, Z3 corresponding to
     // the Z screw positions in the bed carriage.
     // Define one position per Z stepper in stepper driver order.
-    #define Z_STEPPER_ALIGN_STEPPER_XY { { -45, 180 }, { -45, 25 }, { 370, 140 } }//BAK reversed for coreYX
+    #define Z_STEPPER_ALIGN_STEPPER_XY { { -20, 180 }, { -20, 27 }, { 290+41, 140 } }//BAK reversed for coreYX
   #else
     // Amplification factor. Used to scale the correction step up or down in case
     // the stepper (spindle) position is farther out than the test point.
@@ -1357,7 +1357,7 @@
    *
    * :[ 'LCD', 'ONBOARD', 'CUSTOM_CABLE' ]
    */
-  //#define SDCARD_CONNECTION LCD
+  #define SDCARD_CONNECTION ONBOARD //BAK for upload
 
 #endif // SDSUPPORT
 

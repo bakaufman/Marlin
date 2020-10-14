@@ -70,7 +70,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(none, default config)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Brett Kaufman, Railcore Dual)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -755,7 +755,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 200.6, 200.6, 1600, 828.5, 276.17 } //BAK 80, 80, 4000, 500, railcore says 201.5 for xy possible, prev z 820.1
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 200.6, 200.6, 1600, 828.5, 828.5 } //BAK 80, 80, 4000, 500, railcore says 201.5 for xy possible, prev z 820.1
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -775,7 +775,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1750, 1750, 250, 1500, 500 } //BAK ok based on JohnOFC xy-1750, z=250 watch for belt slip
+#define DEFAULT_MAX_ACCELERATION      { 1750, 1750, 250, 1500, 1500 } //BAK ok based on JohnOFC xy-1750, z=250 watch for belt slip
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)

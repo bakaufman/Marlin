@@ -1985,7 +1985,8 @@
  *
  * Be sure to turn off auto-retract during filament change.
  *
- * Note that M207 / M208 / M209 settings are saved to EEPROM.
+ * Note that M207 / M208 / M209 settings are saved to 
+ * .
  */
 //#define FWRETRACT
 #if ENABLED(FWRETRACT)

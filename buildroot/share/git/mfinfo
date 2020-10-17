@@ -29,9 +29,8 @@ ORG=$(git remote get-url upstream 2>/dev/null | sed -E 's/.*[\/:](.*)\/.*$/\1/')
 [[ $ORG == MarlinFirmware ]] || { echo "`basename $0`: Not a Marlin repository." 1>&2 ; exit 1; }
 
 case "$REPO" in
-  Marlin              ) TARG=bugfix-1.1.x ;
-                        [[ $# > 0 ]] && [[ $1 == 2 ]] && TARG=bugfix-2.0.x
-                        ;;
+  Marlin              ) TARG=bugfix-1.1.x ;;
+  MarlinDev           ) TARG=dev ;;
   MarlinDocumentation ) TARG=master ;;
 esac
 

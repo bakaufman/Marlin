@@ -397,11 +397,13 @@ class Temperature {
       return target_temperature[HOTEND_INDEX];
     }
 
+    static int16_t degTargetBed() { return target_temperature_bed; }
+
     #if WATCH_HOTENDS
       static void start_watching_heater(const uint8_t e = 0);
     #endif
 
-    static void setTargetHotend(const int16_t celsius, const uint8_t e) {
+    static void setTargetHotend(const int16_t celsius, uint8_t e) {
       #if HOTENDS == 1
         UNUSED(e);
       #endif
@@ -420,7 +422,14 @@ class Temperature {
       #endif
     }
 
-    FORCE_INLINE static bool isHeatingHotend(const uint8_t e) {
+    static void setTargetBed(const int16_t celsius) {
+      target_temperature_bed = celsius;
+      #if WATCH_THE_BED
+        start_watching_bed();
+      #endif
+    }
+
+    static bool isHeatingHotend(uint8_t e) {
       #if HOTENDS == 1
         UNUSED(e);
       #endif

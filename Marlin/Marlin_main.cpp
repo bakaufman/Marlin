@@ -8462,6 +8462,58 @@ inline void gcode_M104() {
   #endif
 }
 
+#if HAS_TEMP_HOTEND || HAS_TEMP_BED
+
+  void print_heaterstates() {
+    #if HAS_TEMP_HOTEND
+      SERIAL_PROTOCOLPGM(" T:");
+      SERIAL_PROTOCOL(thermalManager.degHotend(target_extruder));
+      SERIAL_PROTOCOLPGM(" /");
+      SERIAL_PROTOCOL(thermalManager.degTargetHotend(target_extruder));
+      #if ENABLED(SHOW_TEMP_ADC_VALUES)
+        SERIAL_PROTOCOLPAIR(" (", thermalManager.rawHotendTemp(target_extruder) / OVERSAMPLENR);
+        SERIAL_PROTOCOLCHAR(')');
+      #endif
+    #endif
+    #if HAS_TEMP_BED
+      SERIAL_PROTOCOLPGM(" B:");
+      SERIAL_PROTOCOL(thermalManager.degBed());
+      SERIAL_PROTOCOLPGM(" /");
+      SERIAL_PROTOCOL(thermalManager.degTargetBed());
+      #if ENABLED(SHOW_TEMP_ADC_VALUES)
+        SERIAL_PROTOCOLPAIR(" (", thermalManager.rawBedTemp() / OVERSAMPLENR);
+        SERIAL_PROTOCOLCHAR(')');
+      #endif
+    #endif
+    #if HOTENDS > 1
+      HOTEND_LOOP() {
+        SERIAL_PROTOCOLPAIR(" T", e);
+        SERIAL_PROTOCOLCHAR(':');
+        SERIAL_PROTOCOL(thermalManager.degHotend(e));
+        SERIAL_PROTOCOLPGM(" /");
+        SERIAL_PROTOCOL(thermalManager.degTargetHotend(e));
+        #if ENABLED(SHOW_TEMP_ADC_VALUES)
+          SERIAL_PROTOCOLPAIR(" (", thermalManager.rawHotendTemp(e) / OVERSAMPLENR);
+          SERIAL_PROTOCOLCHAR(')');
+        #endif
+      }
+    #endif
+    SERIAL_PROTOCOLPGM(" @:");
+    SERIAL_PROTOCOL(thermalManager.getHeaterPower(target_extruder));
+    #if HAS_TEMP_BED
+      SERIAL_PROTOCOLPGM(" B@:");
+      SERIAL_PROTOCOL(thermalManager.getHeaterPower(-1));
+    #endif
+    #if HOTENDS > 1
+      HOTEND_LOOP() {
+        SERIAL_PROTOCOLPAIR(" @", e);
+        SERIAL_PROTOCOLCHAR(':');
+        SERIAL_PROTOCOL(thermalManager.getHeaterPower(e));
+      }
+    #endif
+  }
+#endif
+
 /**
  * M105: Read hot end and bed temperature
  */

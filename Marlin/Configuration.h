@@ -380,9 +380,9 @@
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
   // Ultimaker
-  #define DEFAULT_Kp 25.89 //BAK M2F
-  #define DEFAULT_Ki 1.94 //BAK M2F
-  #define DEFAULT_Kd 86.53 //BAK M2F
+  #define DEFAULT_Kp 17.15 //BAK M2F#1 PID
+  #define DEFAULT_Ki 1.25 //BAK M2F#1 PID
+  #define DEFAULT_Kd 58.66 //BAK M2F#1 PID
 
   // MakerGear
   //#define DEFAULT_Kp 7.0
@@ -431,9 +431,9 @@
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 10.00
-  #define DEFAULT_bedKi .023
-  #define DEFAULT_bedKd 305.4
+  #define DEFAULT_bedKp 149.57 //BAK M2F#1 pid
+  #define DEFAULT_bedKi 3.90 //BAK M2F#1 pid
+  #define DEFAULT_bedKd 1433.54 //BAK M2F#1 pid
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
@@ -883,10 +883,10 @@
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS -4 //BAK M2F
 #define Y_MIN_POS 0
-#define Z_MIN_POS -5
+#define Z_MIN_POS -2 //BAK M2F1
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 210 //BAK M2F
+#define Z_MAX_POS 211 //BAK M2F#1
 
 /**
  * Software Endstops
@@ -1100,7 +1100,7 @@
 #define LCD_BED_LEVELING //BAK good idea if you add probe
 
 #if ENABLED(LCD_BED_LEVELING)
-  #define MBL_Z_STEP 0.025    // Step size while manually probing Z axis.
+  #define MBL_Z_STEP 0.020    // Step size while manually probing Z axis. BAK down from 0.025
   #define LCD_PROBE_Z_RANGE 4 // Z Range centered on Z_MIN_POS for LCD Z adjustment
 #endif
 
@@ -1149,7 +1149,7 @@
 
 // Homing speeds (mm/m)
 #define HOMING_FEEDRATE_XY (50*60)
-#define HOMING_FEEDRATE_Z  (15*60) //BAK from M2F
+#define HOMING_FEEDRATE_Z  (12.5*60) //BAK from M2F 15*60
 
 // @section calibrate
 

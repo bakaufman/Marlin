@@ -29,15 +29,13 @@
  * Some of these settings can damage your printer if improperly set!
  *
  * Basic settings can be found in Configuration.h
- *
  */
-#define CONFIGURATION_ADV_H_VERSION 020006
-
-// @section temperature
+#define CONFIGURATION_ADV_H_VERSION 020008
 
 //===========================================================================
 //============================= Thermal Settings ============================
 //===========================================================================
+// @section temperature
 
 /**
  * Thermocouple sensors are quite sensitive to noise.  Any noise induced in
@@ -126,9 +124,19 @@
   #define HEATER_BED_INVERTING true
 #endif
 
-/**
- * Heated Chamber settings
- */
+//
+// Heated Bed Bang-Bang options
+//
+#if DISABLED(PIDTEMPBED)
+  #define BED_CHECK_INTERVAL 5000   // (ms) Interval between checks in bang-bang control
+  #if ENABLED(BED_LIMIT_SWITCHING)
+    #define BED_HYSTERESIS 2        // (°C) Only set the relevant heater state when ABS(T-target) > BED_HYSTERESIS
+  #endif
+#endif
+
+//
+// Heated Chamber options
+//
 #if TEMP_SENSOR_CHAMBER
   #define CHAMBER_MINTEMP             5
   #define CHAMBER_MAXTEMP            60
@@ -136,12 +144,28 @@
   //#define CHAMBER_LIMIT_SWITCHING
   //#define HEATER_CHAMBER_PIN       44   // Chamber heater on/off pin
   //#define HEATER_CHAMBER_INVERTING false
-#endif
 
-#if DISABLED(PIDTEMPBED)
-  #define BED_CHECK_INTERVAL 5000 // ms between checks in bang-bang control
-  #if ENABLED(BED_LIMIT_SWITCHING)
-    #define BED_HYSTERESIS 2 // Only disable heating if T>target+BED_HYSTERESIS and enable heating if T>target-BED_HYSTERESIS
+  //#define CHAMBER_FAN               // Enable a fan on the chamber
+  #if ENABLED(CHAMBER_FAN)
+    #define CHAMBER_FAN_MODE 2        // Fan control mode: 0=Static; 1=Linear increase when temp is higher than target; 2=V-shaped curve.
+    #if CHAMBER_FAN_MODE == 0
+      #define CHAMBER_FAN_BASE  255   // Chamber fan PWM (0-255)
+    #elif CHAMBER_FAN_MODE == 1
+      #define CHAMBER_FAN_BASE  128   // Base chamber fan PWM (0-255); turns on when chamber temperature is above the target
+      #define CHAMBER_FAN_FACTOR 25   // PWM increase per °C above target
+    #elif CHAMBER_FAN_MODE == 2
+      #define CHAMBER_FAN_BASE  128   // Minimum chamber fan PWM (0-255)
+      #define CHAMBER_FAN_FACTOR 25   // PWM increase per °C difference from target
+    #endif
+  #endif
+
+  //#define CHAMBER_VENT              // Enable a servo-controlled vent on the chamber
+  #if ENABLED(CHAMBER_VENT)
+    #define CHAMBER_VENT_SERVO_NR  1  // Index of the vent servo
+    #define HIGH_EXCESS_HEAT_LIMIT 5  // How much above target temp to consider there is excess heat in the chamber
+    #define LOW_EXCESS_HEAT_LIMIT 3
+    #define MIN_COOLING_SLOPE_TIME_CHAMBER_VENT 20
+    #define MIN_COOLING_SLOPE_DEG_CHAMBER_VENT 1.5
   #endif
 #endif
 
@@ -737,7 +761,6 @@
    *               | 4   3 | 1   4 | 2   1 | 3   2 |
    *               |       |       |       |       |
    *               | 1   2 | 2   3 | 3   4 | 4   1 |
-   *
    */
   #ifndef Z_STEPPER_ALIGN_XY
     //#define Z_STEPPERS_ORIENTATION 0
@@ -772,6 +795,7 @@
 //
 //#define ASSISTED_TRAMMING
 #if ENABLED(ASSISTED_TRAMMING)
+
   // Define positions for probing points, use the hotend as reference not the sensor.
   #define TRAMMING_POINT_XY { {  20, 20 }, { 200,  20 }, { 200, 200 }, { 20, 200 } }
 
@@ -781,11 +805,9 @@
   #define TRAMMING_POINT_NAME_3 "Back-Right"
   #define TRAMMING_POINT_NAME_4 "Back-Left"
 
-  // Enable to restore leveling setup after operation
-  #define RESTORE_LEVELING_AFTER_G35
-
-  // Add a menu item for Assisted Tramming
-  //#define ASSISTED_TRAMMING_MENU_ITEM
+  #define RESTORE_LEVELING_AFTER_G35    // Enable to restore leveling setup after operation
+  //#define REPORT_TRAMMING_MM          // Report Z deviation (mm) for each point relative to the first
+  //#define ASSISTED_TRAMMING_MENU_ITEM // Add a menu item for Assisted Tramming
 
   /**
    * Screw thread:
@@ -794,6 +816,7 @@
    *   M5: 50 = Clockwise, 51 = Counter-Clockwise
    */
   #define TRAMMING_SCREW_THREAD 30
+
 #endif
 
 // @section motion
@@ -1024,10 +1047,10 @@
 
 // @section lcd
 
-#if EITHER(ULTIPANEL, EXTENSIBLE_UI)
+#if EITHER(IS_ULTIPANEL, EXTENSIBLE_UI)
   #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 2*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
   #define SHORT_MANUAL_Z_MOVE 0.025 // (mm) Smallest manual Z move (< 0.1mm)
-  #if ENABLED(ULTIPANEL)
+  #if IS_ULTIPANEL
     #define MANUAL_E_MOVES_RELATIVE // Display extruder move distance rather than "position"
     #define ULTIPANEL_FEEDMULTIPLY  // Encoder sets the feedrate multiplier on the Status Screen
   #endif
@@ -1048,6 +1071,14 @@
 #endif
 
 #if HAS_LCD_MENU
+
+  // Add Probe Z Offset calibration to the Z Probe Offsets menu
+  #if HAS_BED_PROBE
+    //#define PROBE_OFFSET_WIZARD
+    #if ENABLED(PROBE_OFFSET_WIZARD)
+      #define PROBE_OFFSET_START -4.0   // Estimated nozzle-to-probe Z offset, plus a little extra
+    #endif
+  #endif
 
   // Include a page of printer information in the LCD Main Menu
   #if ENABLED(LCD_INFO_MENU)
@@ -1104,18 +1135,18 @@
   #define BOOTSCREEN_TIMEOUT 4000        // (ms) Total Duration to display the boot screen(s)
 #endif
 
-#if EITHER(SDSUPPORT, LCD_SET_PROGRESS_MANUALLY) && (HAS_GRAPHICAL_LCD || HAS_CHARACTER_LCD)
+#if EITHER(SDSUPPORT, LCD_SET_PROGRESS_MANUALLY) && ANY(HAS_MARLINUI_U8GLIB, HAS_MARLINUI_HD44780, IS_TFTGLCD_PANEL)
   //#define SHOW_REMAINING_TIME       // Display estimated time to completion
   #if ENABLED(SHOW_REMAINING_TIME)
     //#define USE_M73_REMAINING_TIME  // Use remaining time from M73 command instead of estimation
     //#define ROTATE_PROGRESS_DISPLAY // Display (P)rogress, (E)lapsed, and (R)emaining time
   #endif
 
-  #if HAS_GRAPHICAL_LCD
+  #if HAS_MARLINUI_U8GLIB
     //#define PRINT_PROGRESS_SHOW_DECIMALS // Show progress with decimal digits
   #endif
 
-  #if HAS_CHARACTER_LCD
+  #if EITHER(HAS_MARLINUI_HD44780, IS_TFTGLCD_PANEL)
     //#define LCD_PROGRESS_BAR            // Show a progress bar on HD44780 LCDs for SD printing
     #if ENABLED(LCD_PROGRESS_BAR)
       #define PROGRESS_BAR_BAR_TIME 2000  // (ms) Amount of time to show the bar
@@ -1166,6 +1197,7 @@
   #if ENABLED(POWER_LOSS_RECOVERY)
     #define PLR_ENABLED_DEFAULT   false // Power Loss Recovery enabled by default. (Set with 'M413 Sn' & M500)
     //#define BACKUP_POWER_SUPPLY       // Backup power / UPS to move the steppers on power loss
+    //#define POWER_LOSS_RECOVER_ZHOME  // Z homing is needed for proper recovery. 99.9% of the time this should be disabled!
     //#define POWER_LOSS_ZRAISE       2 // (mm) Z axis raise on resume (on power loss with UPS)
     //#define POWER_LOSS_PIN         44 // Pin to detect power loss. Set to -1 to disable default pin on boards without module.
     //#define POWER_LOSS_STATE     HIGH // State of pin indicating power loss
@@ -1326,7 +1358,7 @@
  * controller events, as there is a trade-off between reliable
  * printing performance versus fast display updates.
  */
-#if HAS_GRAPHICAL_LCD
+#if HAS_MARLINUI_U8GLIB
   // Show SD percentage next to the progress bar
   //#define DOGM_SD_PERCENT
 
@@ -1341,7 +1373,7 @@
   // Western only. Not available for Cyrillic, Kana, Turkish, Greek, or Chinese.
   //#define USE_BIG_EDIT_FONT
 
-  // A smaller font may be used on the Info Screen. Costs 2300 bytes of PROGMEM.
+  // A smaller font may be used on the Info Screen. Costs 2434 bytes of PROGMEM.
   // Western only. Not available for Cyrillic, Kana, Turkish, Greek, or Chinese.
   //#define USE_SMALL_INFOFONT
 
@@ -1396,18 +1428,18 @@
   //#define MARLIN_SNAKE
   //#define GAMES_EASTER_EGG          // Add extra blank lines above the "Games" sub-menu
 
-#endif // HAS_GRAPHICAL_LCD
+#endif // HAS_MARLINUI_U8GLIB
 
 //
 // Additional options for DGUS / DWIN displays
 //
 #if HAS_DGUS_LCD
-  #define DGUS_SERIAL_PORT 3
-  #define DGUS_BAUDRATE 115200
+  #define LCD_SERIAL_PORT 3
+  #define LCD_BAUDRATE 115200
 
   #define DGUS_RX_BUFFER_SIZE 128
   #define DGUS_TX_BUFFER_SIZE 48
-  //#define DGUS_SERIAL_STATS_RX_BUFFER_OVERRUNS  // Fix Rx overrun situation (Currently only for AVR)
+  //#define SERIAL_STATS_RX_BUFFER_OVERRUNS  // Fix Rx overrun situation (Currently only for AVR)
 
   #define DGUS_UPDATE_INTERVAL_MS  500    // (ms) Interval between automatic screen updates
 
@@ -1525,10 +1557,9 @@
 #endif
 
 //
-// FSMC / SPI Graphical TFT
+// Classic UI Options
 //
 #if TFT_SCALED_DOGLCD
-  //#define GRAPHICAL_TFT_ROTATE_180
   //#define TFT_MARLINUI_COLOR 0xFFFF // White
   //#define TFT_MARLINBG_COLOR 0x0000 // Black
   //#define TFT_DISABLED_COLOR 0x0003 // Almost black
@@ -1766,6 +1797,7 @@
   #define N_ARC_CORRECTION       25 // Number of interpolated segments between corrections
   //#define ARC_P_CIRCLES           // Enable the 'P' parameter to specify complete circles
   //#define CNC_WORKSPACE_PLANES    // Allow G2/G3 to operate in XY, ZX, or YZ planes
+  //#define SF_ARC_FIX              // Enable only if using SkeinForge with "Arc Point" fillet procedure
 #endif
 
 // Support for G5 with XYZE destination and IJPQ offsets. Requires ~2666 bytes.
@@ -1951,7 +1983,6 @@
  * Be sure to turn off auto-retract during filament change.
  *
  * Note that M207 / M208 / M209 settings are saved to EEPROM.
- *
  */
 //#define FWRETRACT
 #if ENABLED(FWRETRACT)
@@ -2227,14 +2258,20 @@
 #if HAS_TRINAMIC_CONFIG
 
   #define HOLD_MULTIPLIER    0.5  // Scales down the holding current from run current
-  #define INTERPOLATE       true  // Interpolate X/Y/Z_MICROSTEPS to 256
+
+  /**
+   * Interpolate microsteps to 256
+   * Override for each driver with <driver>_INTERPOLATE settings below
+   */
+  #define INTERPOLATE      true
 
   #if AXIS_IS_TMC(X)
     #define X_CURRENT       760        // (mA) RMS current. Multiply by 1.414 for peak current. BAK 580, 760, 800
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
-    #define X_MICROSTEPS     16    // 0..256
+    #define X_MICROSTEPS     16        // 0..256
     #define X_RSENSE          0.11
-    #define X_CHAIN_POS      -1    // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
+    #define X_CHAIN_POS      -1        // -1..0: Not chained. 1: MCU MOSI connected. 2: Next in chain, ...
+    //#define X_INTERPOLATE  true      // Enable to override 'INTERPOLATE' for the X axis
   #endif
 
   #if AXIS_IS_TMC(X2)
@@ -2243,6 +2280,7 @@
     #define X2_MICROSTEPS    16
     #define X2_RSENSE         0.11
     #define X2_CHAIN_POS     -1
+    //#define X2_INTERPOLATE true
   #endif
 
   #if AXIS_IS_TMC(Y)
@@ -2251,6 +2289,7 @@
     #define Y_MICROSTEPS     16
     #define Y_RSENSE          0.11
     #define Y_CHAIN_POS      -1
+    //#define Y_INTERPOLATE  true
   #endif
 
   #if AXIS_IS_TMC(Y2)
@@ -2259,6 +2298,7 @@
     #define Y2_MICROSTEPS    16
     #define Y2_RSENSE         0.11
     #define Y2_CHAIN_POS     -1
+    //#define Y2_INTERPOLATE true
   #endif
 
   #if AXIS_IS_TMC(Z)
@@ -2267,6 +2307,7 @@
     #define Z_MICROSTEPS     16
     #define Z_RSENSE          0.11
     #define Z_CHAIN_POS      -1
+    //#define Z_INTERPOLATE  true
   #endif
 
   #if AXIS_IS_TMC(Z2)
@@ -2275,6 +2316,7 @@
     #define Z2_MICROSTEPS    16
     #define Z2_RSENSE         0.11
     #define Z2_CHAIN_POS     -1
+    //#define Z2_INTERPOLATE true
   #endif
 
   #if AXIS_IS_TMC(Z3)
@@ -2283,6 +2325,7 @@
     #define Z3_MICROSTEPS    16
     #define Z3_RSENSE         0.11
     #define Z3_CHAIN_POS     -1
+    //#define Z3_INTERPOLATE true
   #endif
 
   #if AXIS_IS_TMC(Z4)
@@ -2291,6 +2334,7 @@
     #define Z4_MICROSTEPS    16
     #define Z4_RSENSE         0.11
     #define Z4_CHAIN_POS     -1
+    //#define Z4_INTERPOLATE true
   #endif
 
   #if AXIS_IS_TMC(E0)
@@ -2298,6 +2342,7 @@
     #define E0_MICROSTEPS    16
     #define E0_RSENSE         0.11
     #define E0_CHAIN_POS     -1
+    //#define E0_INTERPOLATE true
   #endif
 
   #if AXIS_IS_TMC(E1)
@@ -2305,6 +2350,7 @@
     #define E1_MICROSTEPS    16
     #define E1_RSENSE         0.11
     #define E1_CHAIN_POS     -1
+    //#define E1_INTERPOLATE true
   #endif
 
   #if AXIS_IS_TMC(E2)
@@ -2312,6 +2358,7 @@
     #define E2_MICROSTEPS    16
     #define E2_RSENSE         0.11
     #define E2_CHAIN_POS     -1
+    //#define E2_INTERPOLATE true
   #endif
 
   #if AXIS_IS_TMC(E3)
@@ -2319,6 +2366,7 @@
     #define E3_MICROSTEPS    16
     #define E3_RSENSE         0.11
     #define E3_CHAIN_POS     -1
+    //#define E3_INTERPOLATE true
   #endif
 
   #if AXIS_IS_TMC(E4)
@@ -2326,6 +2374,7 @@
     #define E4_MICROSTEPS    16
     #define E4_RSENSE         0.11
     #define E4_CHAIN_POS     -1
+    //#define E4_INTERPOLATE true
   #endif
 
   #if AXIS_IS_TMC(E5)
@@ -2333,6 +2382,7 @@
     #define E5_MICROSTEPS    16
     #define E5_RSENSE         0.11
     #define E5_CHAIN_POS     -1
+    //#define E5_INTERPOLATE true
   #endif
 
   #if AXIS_IS_TMC(E6)
@@ -2340,6 +2390,7 @@
     #define E6_MICROSTEPS    16
     #define E6_RSENSE         0.11
     #define E6_CHAIN_POS     -1
+    //#define E6_INTERPOLATE true
   #endif
 
   #if AXIS_IS_TMC(E7)
@@ -2347,6 +2398,7 @@
     #define E7_MICROSTEPS    16
     #define E7_RSENSE         0.11
     #define E7_CHAIN_POS     -1
+    //#define E7_INTERPOLATE true
   #endif
 
   /**
@@ -2437,10 +2489,26 @@
    * CHOPPER_PRUSAMK3_24V // Imported parameters from the official Průša firmware for MK3 (24V)
    * CHOPPER_MARLIN_119   // Old defaults from Marlin v1.1.9
    *
-   * Define you own with
+   * Define your own with:
    * { <off_time[1..15]>, <hysteresis_end[-3..12]>, hysteresis_start[1..8] }
    */
-  #define CHOPPER_TIMING CHOPPER_DEFAULT_24V //BAK
+  #define CHOPPER_TIMING CHOPPER_DEFAULT_24V        // All axes (override below)
+  //#define CHOPPER_TIMING_X  CHOPPER_DEFAULT_12V   // For X Axes (override below)
+  //#define CHOPPER_TIMING_X2 CHOPPER_DEFAULT_12V
+  //#define CHOPPER_TIMING_Y  CHOPPER_DEFAULT_12V   // For Y Axes (override below)
+  //#define CHOPPER_TIMING_Y2 CHOPPER_DEFAULT_12V
+  //#define CHOPPER_TIMING_Z  CHOPPER_DEFAULT_12V   // For Z Axes (override below)
+  //#define CHOPPER_TIMING_Z2 CHOPPER_DEFAULT_12V
+  //#define CHOPPER_TIMING_Z3 CHOPPER_DEFAULT_12V
+  //#define CHOPPER_TIMING_Z4 CHOPPER_DEFAULT_12V
+  //#define CHOPPER_TIMING_E  CHOPPER_DEFAULT_12V   // For Extruders (override below)
+  //#define CHOPPER_TIMING_E1 CHOPPER_DEFAULT_12V
+  //#define CHOPPER_TIMING_E2 CHOPPER_DEFAULT_12V
+  //#define CHOPPER_TIMING_E3 CHOPPER_DEFAULT_12V
+  //#define CHOPPER_TIMING_E4 CHOPPER_DEFAULT_12V
+  //#define CHOPPER_TIMING_E5 CHOPPER_DEFAULT_12V
+  //#define CHOPPER_TIMING_E6 CHOPPER_DEFAULT_12V
+  //#define CHOPPER_TIMING_E7 CHOPPER_DEFAULT_12V
 
   /**
    * Monitor Trinamic drivers
@@ -2924,7 +2992,7 @@
      * This allows the laser to keep in perfect sync with the planner and removes
      * the powerup/down delay since lasers require negligible time.
      */
-    #define LASER_POWER_INLINE
+    //#define LASER_POWER_INLINE
 
     #if ENABLED(LASER_POWER_INLINE)
       /**
@@ -3342,6 +3410,25 @@
 #endif
 
 /**
+ * Mechanical Gantry Calibration
+ * Modern replacement for the Prusa TMC_Z_CALIBRATION.
+ * Adds capability to work with any adjustable current drivers.
+ * Implemented as G34 because M915 is deprecated.
+ */
+//#define MECHANICAL_GANTRY_CALIBRATION
+#if ENABLED(MECHANICAL_GANTRY_CALIBRATION)
+  #define GANTRY_CALIBRATION_CURRENT          600     // Default calibration current in ma
+  #define GANTRY_CALIBRATION_EXTRA_HEIGHT      15     // Extra distance in mm past Z_###_POS to move
+  #define GANTRY_CALIBRATION_FEEDRATE         500     // Feedrate for correction move
+  //#define GANTRY_CALIBRATION_TO_MIN                 // Enable to calibrate Z in the MIN direction
+
+  //#define GANTRY_CALIBRATION_SAFE_POSITION  { X_CENTER, Y_CENTER } // Safe position for nozzle
+  //#define GANTRY_CALIBRATION_XY_PARK_FEEDRATE 3000  // XY Park Feedrate - MMM
+  //#define GANTRY_CALIBRATION_COMMANDS_PRE   ""
+  #define GANTRY_CALIBRATION_COMMANDS_POST  "G28"     // G28 highly recommended to ensure an accurate position
+#endif
+
+/**
  * MAX7219 Debug Matrix
  *
  * Add support for a low-cost 8x8 LED Matrix based on the Max7219 chip as a realtime status display.
@@ -3388,6 +3475,13 @@
 #endif
 
 /**
+ * Ethernet. Use M552 to enable and set the IP address.
+ */
+#if HAS_ETHERNET
+  #define MAC_ADDRESS { 0xDE, 0xAD, 0xBE, 0xEF, 0xF0, 0x0D }  // A MAC address unique to your network
+#endif
+
+/**
  * WiFi Support (Espressif ESP32 WiFi)
  */
 //#define WIFISUPPORT         // Marlin embedded WiFi managenent
@@ -3416,10 +3510,10 @@
 #if ENABLED(PRUSA_MMU2)
 
   // Serial port used for communication with MMU2.
-  // For AVR enable the UART port used for the MMU. (e.g., internalSerial)
+  // For AVR enable the UART port used for the MMU. (e.g., mmuSerial)
   // For 32-bit boards check your HAL for available serial ports. (e.g., Serial2)
-  #define INTERNAL_SERIAL_PORT 2
-  #define MMU2_SERIAL internalSerial
+  #define MMU2_SERIAL_PORT 2
+  #define MMU2_SERIAL mmuSerial
 
   // Use hardware reset for MMU if a pin is defined for it
   //#define MMU2_RST_PIN 23
@@ -3470,7 +3564,7 @@
    */
   //#define MMU_EXTRUDER_SENSOR
   #if ENABLED(MMU_EXTRUDER_SENSOR)
-    #define MMU_LOADING_ATTEMPTS_NR 5 //max. number of attempts to load filament if first load fail
+    #define MMU_LOADING_ATTEMPTS_NR 5 // max. number of attempts to load filament if first load fail
   #endif
 
   /**
@@ -3521,6 +3615,11 @@
 // M100 Free Memory Watcher to debug memory usage
 //
 //#define M100_FREE_MEMORY_WATCHER
+
+//
+// M42 - Set pin states
+//
+//#define DIRECT_PIN_CONTROL
 
 //
 // M43 - display pin status, toggle pins, watch pins, watch endstops & toggle LED, test servo probe

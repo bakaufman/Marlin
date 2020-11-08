@@ -55,10 +55,10 @@
 
 #include "../../inc/MarlinConfig.h"
 
-#if HAS_MARLINUI_U8GLIB && (PIN_EXISTS(FSMC_CS) || ENABLED(SPI_GRAPHICAL_TFT))
+#if HAS_MARLINUI_U8GLIB && (PIN_EXISTS(FSMC_CS) || HAS_SPI_GRAPHICAL_TFT)
 
 #include "HAL_LCD_com_defines.h"
-#include "ultralcd_DOGM.h"
+#include "marlinui_DOGM.h"
 
 #include <string.h>
 
@@ -73,10 +73,8 @@ TFT_IO tftio;
 #define HEIGHT LCD_PIXEL_HEIGHT
 #define PAGE_HEIGHT 8
 
-#include "../scaled_tft.h"
+#include "../touch/touch_buttons.h"
 
-#define UPSCALE0(M) ((M) * (GRAPHICAL_TFT_UPSCALE))
-#define UPSCALE(A,M) (UPSCALE0(M) + (A))
 #define X_HI (UPSCALE(TFT_PIXEL_OFFSET_X, WIDTH) - 1)
 #define Y_HI (UPSCALE(TFT_PIXEL_OFFSET_Y, HEIGHT) - 1)
 
@@ -276,29 +274,10 @@ static void setWindow(u8g_t *u8g, u8g_dev_t *dev, uint16_t Xmin, uint16_t Ymin, 
     B01111111,B11111111,B11111111,B11111110,
   };
 
-  #define BUTTON_SIZE_X 32
-  #define BUTTON_SIZE_Y 20
-
-  // 14, 90, 166, 242, 185 are the original values upscaled 2x.
-  #define BUTTOND_X_LO UPSCALE0(14 / 2)
-  #define BUTTOND_X_HI (UPSCALE(BUTTOND_X_LO, BUTTON_SIZE_X) - 1)
-
-  #define BUTTONA_X_LO UPSCALE0(90 / 2)
-  #define BUTTONA_X_HI (UPSCALE(BUTTONA_X_LO, BUTTON_SIZE_X) - 1)
-
-  #define BUTTONB_X_LO UPSCALE0(166 / 2)
-  #define BUTTONB_X_HI (UPSCALE(BUTTONB_X_LO, BUTTON_SIZE_X) - 1)
-
-  #define BUTTONC_X_LO UPSCALE0(242 / 2)
-  #define BUTTONC_X_HI (UPSCALE(BUTTONC_X_LO, BUTTON_SIZE_X) - 1)
-
-  #define BUTTON_Y_LO UPSCALE0(140 / 2) + 44 // 184 2x, 254 3x
-  #define BUTTON_Y_HI (UPSCALE(BUTTON_Y_LO, BUTTON_SIZE_Y) - 1)
-
   void drawImage(const uint8_t *data, u8g_t *u8g, u8g_dev_t *dev, uint16_t length, uint16_t height, uint16_t color) {
-    uint16_t buffer[BUTTON_SIZE_X * sq(GRAPHICAL_TFT_UPSCALE)];
+    uint16_t buffer[BUTTON_WIDTH * sq(GRAPHICAL_TFT_UPSCALE)];
 
-    if (length > BUTTON_SIZE_X) return;
+    if (length > BUTTON_WIDTH) return;
 
     for (uint16_t i = 0; i < height; i++) {
       uint16_t k = 0;
@@ -346,7 +325,7 @@ uint8_t u8g_dev_tft_320x240_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, u
 
   switch (msg) {
     case U8G_DEV_MSG_INIT:
-      dev->com_fn(u8g, U8G_COM_MSG_INIT, U8G_SPI_CLK_CYCLE_NONE, NULL);
+      dev->com_fn(u8g, U8G_COM_MSG_INIT, U8G_SPI_CLK_CYCLE_NONE, nullptr);
       tftio.Init();
       tftio.InitTFT();
 
@@ -368,16 +347,16 @@ uint8_t u8g_dev_tft_320x240_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, u
       // Bottom buttons
       #if HAS_TOUCH_XPT2046
         setWindow(u8g, dev, BUTTOND_X_LO, BUTTON_Y_LO, BUTTOND_X_HI, BUTTON_Y_HI);
-        drawImage(buttonD, u8g, dev, 32, 20, TFT_BTCANCEL_COLOR);
+        drawImage(buttonD, u8g, dev, BUTTON_DRAW_WIDTH, BUTTON_DRAW_HEIGHT, TFT_BTCANCEL_COLOR);
 
         setWindow(u8g, dev, BUTTONA_X_LO, BUTTON_Y_LO, BUTTONA_X_HI, BUTTON_Y_HI);
-        drawImage(buttonA, u8g, dev, 32, 20, TFT_BTARROWS_COLOR);
+        drawImage(buttonA, u8g, dev, BUTTON_DRAW_WIDTH, BUTTON_DRAW_HEIGHT, TFT_BTARROWS_COLOR);
 
         setWindow(u8g, dev, BUTTONB_X_LO, BUTTON_Y_LO, BUTTONB_X_HI, BUTTON_Y_HI);
-        drawImage(buttonB, u8g, dev, 32, 20, TFT_BTARROWS_COLOR);
+        drawImage(buttonB, u8g, dev, BUTTON_DRAW_WIDTH, BUTTON_DRAW_HEIGHT, TFT_BTARROWS_COLOR);
 
         setWindow(u8g, dev, BUTTONC_X_LO, BUTTON_Y_LO, BUTTONC_X_HI, BUTTON_Y_HI);
-        drawImage(buttonC, u8g, dev, 32, 20, TFT_BTOKMENU_COLOR);
+        drawImage(buttonC, u8g, dev, BUTTON_DRAW_WIDTH, BUTTON_DRAW_HEIGHT, TFT_BTOKMENU_COLOR);
       #endif // HAS_TOUCH_XPT2046
 
       return 0;
@@ -477,4 +456,4 @@ uint8_t u8g_com_hal_tft_fn(u8g_t *u8g, uint8_t msg, uint8_t arg_val, void *arg_p
 
 U8G_PB_DEV(u8g_dev_tft_320x240_upscale_from_128x64, WIDTH, HEIGHT, PAGE_HEIGHT, u8g_dev_tft_320x240_upscale_from_128x64_fn, U8G_COM_HAL_TFT_FN);
 
-#endif // HAS_MARLINUI_U8GLIB && FSMC_CS
+#endif // HAS_MARLINUI_U8GLIB && (FSMC_CS_PIN || HAS_SPI_GRAPHICAL_TFT)

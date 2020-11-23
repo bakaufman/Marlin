@@ -1143,8 +1143,8 @@
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
 #define Z_MIN_POS -4 //BAK
-#define X_MAX_POS 300 //BAK
-#define Y_MAX_POS 300 //BAK
+#define X_MAX_POS 299 //BAK
+#define Y_MAX_POS 299 //BAK
 #define Z_MAX_POS 280
 
 /**
@@ -1562,7 +1562,7 @@
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
 #define PREHEAT_2_LABEL       "PETG" //BAK
-#define PREHEAT_2_TEMP_HOTEND 260
+#define PREHEAT_2_TEMP_HOTEND 240
 #define PREHEAT_2_TEMP_BED    90
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 

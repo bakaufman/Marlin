@@ -1346,7 +1346,7 @@
   #endif
 
   // Add an optimized binary file transfer mode, initiated with 'M28 B1'
-  //#define BINARY_FILE_TRANSFER
+  #define BINARY_FILE_TRANSFER //BAK to allow firmware upload
 
   /**
    * Set this option to one of the following (or the board's defaults apply):
@@ -2144,7 +2144,7 @@
   #define FILAMENT_CHANGE_ALERT_BEEPS         10  // Number of alert beeps to play when a response is needed.
   #define PAUSE_PARK_NO_STEPPER_TIMEOUT           // Enable for XYZ steppers to stay powered on during filament change.
 
-  //#define PARK_HEAD_ON_PAUSE                    // Park the nozzle during pause and filament change.
+  #define PARK_HEAD_ON_PAUSE                    // Park the nozzle during pause and filament change.
   //#define HOME_BEFORE_FILAMENT_CHANGE           // If needed, home before parking for filament change
 
   #define FILAMENT_LOAD_UNLOAD_GCODES           // BAK Add M701/M702 Load/Unload G-codes, plus Load/Unload in the LCD Prepare menu.

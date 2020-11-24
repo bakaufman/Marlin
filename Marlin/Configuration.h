@@ -132,7 +132,7 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Railcore Dual ZL"
+#define CUSTOM_MACHINE_NAME "Dual ZL"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -576,7 +576,7 @@
  *
  * *** IT IS HIGHLY RECOMMENDED TO LEAVE THIS OPTION ENABLED! ***
  */
-#define PREVENT_COLD_EXTRUSION //BAK
+//#define PREVENT_COLD_EXTRUSION //BAK temp
 #define EXTRUDE_MINTEMP 170
 
 /**
@@ -1145,7 +1145,7 @@
 #define Z_MIN_POS -4 //BAK
 #define X_MAX_POS 290 //BAK
 #define Y_MAX_POS 290 //BAK
-#define Z_MAX_POS 280
+#define Z_MAX_POS 310 //BAK
 
 /**
  * Software Endstops

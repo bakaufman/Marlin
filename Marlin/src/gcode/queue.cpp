@@ -51,10 +51,6 @@ GCodeQueue queue;
   #include "../feature/powerloss.h"
 #endif
 
-#if ENABLED(GCODE_REPEAT_MARKERS)
-  #include "../feature/repeat.h"
-#endif
-
 /**
  * GCode line number handling. Hosts may opt to include line numbers when
  * sending commands to Marlin, and lines will be checked for sequentiality.
@@ -420,14 +416,11 @@ inline void process_stream_char(const char c, uint8_t &sis, char (&buff)[MAX_CMD
  * keep sensor readings going and watchdog alive.
  */
 inline bool process_line_done(uint8_t &sis, char (&buff)[MAX_CMD_SIZE], int &ind) {
-  sis = PS_NORMAL;                    // "Normal" Serial Input State
-  buff[ind] = '\0';                   // Of course, I'm a Terminator.
-  const bool is_empty = (ind == 0);   // An empty line?
-  if (is_empty)
-    thermalManager.manage_heater();   // Keep sensors satisfied
-  else
-    ind = 0;                          // Start a new line
-  return is_empty;                    // Inform the caller
+  sis = PS_NORMAL;
+  buff[ind] = 0;
+  if (ind) { ind = 0; return false; }
+  thermalManager.manage_heater();
+  return true;
 }
 
 /**
@@ -542,11 +535,12 @@ void GCodeQueue::get_serial_commands() {
 
         #if DISABLED(EMERGENCY_PARSER)
           // Process critical commands early
-          if (command[0] == 'M') switch (command[3]) {
-            case '8': if (command[2] == '0' && command[1] == '1') { wait_for_heatup = false; TERN_(HAS_LCD_MENU, wait_for_user = false); } break;
-            case '2': if (command[2] == '1' && command[1] == '1') kill(M112_KILL_STR, nullptr, true); break;
-            case '0': if (command[1] == '4' && command[2] == '1') quickstop_stepper(); break;
+          if (strcmp_P(command, PSTR("M108")) == 0) {
+            wait_for_heatup = false;
+            TERN_(HAS_LCD_MENU, wait_for_user = false);
           }
+          if (strcmp_P(command, PSTR("M112")) == 0) kill(M112_KILL_STR, nullptr, true);
+          if (strcmp_P(command, PSTR("M410")) == 0) quickstop_stepper();
         #endif
 
         #if defined(NO_TIMEOUTS) && NO_TIMEOUTS > 0
@@ -581,9 +575,10 @@ void GCodeQueue::get_serial_commands() {
     if (!IS_SD_PRINTING()) return;
 
     int sd_count = 0;
-    while (length < BUFSIZE && !card.eof()) {
+    bool card_eof = card.eof();
+    while (length < BUFSIZE && !card_eof) {
       const int16_t n = card.get();
-      const bool card_eof = card.eof();
+      card_eof = card.eof();
       if (n < 0 && !card_eof) { SERIAL_ERROR_MSG(STR_SD_ERR_READ); continue; }
 
       const char sd_char = (char)n;
@@ -593,21 +588,17 @@ void GCodeQueue::get_serial_commands() {
         // Reset stream state, terminate the buffer, and commit a non-empty command
         if (!is_eol && sd_count) ++sd_count;          // End of file with no newline
         if (!process_line_done(sd_input_state, command_buffer[index_w], sd_count)) {
-
-          // M808 S saves the sdpos of the next line. M808 loops to a new sdpos.
-          TERN_(GCODE_REPEAT_MARKERS, repeat.early_parse_M808(command_buffer[index_w]));
-
-          // Put the new command into the buffer (no "ok" sent)
           _commit_command(false);
-
-          // Prime Power-Loss Recovery for the NEXT _commit_command
-          TERN_(POWER_LOSS_RECOVERY, recovery.cmd_sdpos = card.getIndex());
+          #if ENABLED(POWER_LOSS_RECOVERY)
+            recovery.cmd_sdpos = card.getIndex();     // Prime for the NEXT _commit_command
+          #endif
         }
 
-        if (card.eof()) card.fileHasFinished();         // Handle end of file reached
+        if (card_eof) card.fileHasFinished();         // Handle end of file reached
       }
       else
         process_stream_char(sd_char, sd_input_state, command_buffer[index_w], sd_count);
+
     }
   }
 

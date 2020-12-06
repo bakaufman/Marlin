@@ -120,16 +120,12 @@ uint8_t HAL_get_reset_source();
 
 FORCE_INLINE void _delay_ms(const int delay_ms) { delay(delay_ms); }
 
-#if GCC_VERSION <= 50000
-  #pragma GCC diagnostic push
-  #pragma GCC diagnostic ignored "-Wunused-function"
-#endif
-
-extern "C" uint32_t freeMemory();
-
-#if GCC_VERSION <= 50000
-  #pragma GCC diagnostic pop
-#endif
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+extern "C" {
+  uint32_t freeMemory();
+}
+#pragma GCC diagnostic pop
 
 // ADC
 

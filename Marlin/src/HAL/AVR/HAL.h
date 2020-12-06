@@ -122,16 +122,12 @@ inline uint8_t HAL_get_reset_source() { return MCUSR; }
 
 inline void HAL_reboot() {}  // reboot the board or restart the bootloader
 
-#if GCC_VERSION <= 50000
-  #pragma GCC diagnostic push
-  #pragma GCC diagnostic ignored "-Wunused-function"
-#endif
-
-extern "C" int freeMemory();
-
-#if GCC_VERSION <= 50000
-  #pragma GCC diagnostic pop
-#endif
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+extern "C" {
+  int freeMemory();
+}
+#pragma GCC diagnostic pop
 
 // ADC
 #ifdef DIDR2

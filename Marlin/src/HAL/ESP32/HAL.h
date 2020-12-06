@@ -100,16 +100,10 @@ inline void HAL_reboot() {}  // reboot the board or restart the bootloader
 
 void _delay_ms(int delay);
 
-#if GCC_VERSION <= 50000
-  #pragma GCC diagnostic push
-  #pragma GCC diagnostic ignored "-Wunused-function"
-#endif
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
 int freeMemory();
-
-#if GCC_VERSION <= 50000
-  #pragma GCC diagnostic pop
-#endif
+#pragma GCC diagnostic pop
 
 void analogWrite(pin_t pin, int value);
 

@@ -60,7 +60,7 @@
 #include "sd/cardreader.h"
 
 #include "lcd/marlinui.h"
-#if HAS_TOUCH_BUTTONS
+#if HAS_TOUCH_XPT2046
   #include "lcd/touch/touch_buttons.h"
 #endif
 
@@ -75,10 +75,6 @@
   #include "lcd/dwin/e3v2/dwin.h"
   #include "lcd/dwin/dwin_lcd.h"
   #include "lcd/dwin/e3v2/rotary_encoder.h"
-#endif
-
-#if ENABLED(EXTENSIBLE_UI)
-  #include "lcd/extui/ui_api.h"
 #endif
 
 #if HAS_ETHERNET
@@ -177,10 +173,6 @@
   #include "feature/pause.h"
 #endif
 
-#if ENABLED(GCODE_REPEAT_MARKERS)
-  #include "feature/repeat.h"
-#endif
-
 #if ENABLED(POWER_LOSS_RECOVERY)
   #include "feature/powerloss.h"
 #endif
@@ -221,8 +213,8 @@
   #include "feature/controllerfan.h"
 #endif
 
-#if HAS_PRUSA_MMU2
-  #include "feature/mmu/mmu2.h"
+#if ENABLED(PRUSA_MMU2)
+  #include "feature/mmu2/mmu2.h"
 #endif
 
 #if HAS_L64XX
@@ -364,8 +356,6 @@ void enable_all_steppers() {
   ENABLE_AXIS_Y();
   ENABLE_AXIS_Z();
   enable_e_steppers();
-
-  TERN_(EXTENSIBLE_UI, ExtUI::onSteppersEnabled());
 }
 
 void disable_e_steppers() {
@@ -385,8 +375,6 @@ void disable_all_steppers() {
   DISABLE_AXIS_Y();
   DISABLE_AXIS_Z();
   disable_e_steppers();
-
-  TERN_(EXTENSIBLE_UI, ExtUI::onSteppersDisabled());
 }
 
 #if ENABLED(G29_RETRY_AND_RECOVER)
@@ -447,7 +435,6 @@ bool printingIsPaused() {
 
 void startOrResumeJob() {
   if (!printingIsPaused()) {
-    TERN_(GCODE_REPEAT_MARKERS, repeat.reset());
     TERN_(CANCEL_OBJECTS, cancelable.reset());
     TERN_(LCD_SHOW_E_TOTAL, e_move_accumulator = 0);
     #if BOTH(LCD_SET_PROGRESS_MANUALLY, USE_M73_REMAINING_TIME)
@@ -726,7 +713,9 @@ void idle(TERN_(ADVANCED_PAUSE_FEATURE, bool no_stepper_sleep/*=false*/)) {
   TERN_(HAS_FILAMENT_SENSOR, runout.run());
 
   // Run HAL idle tasks
-  TERN_(HAL_IDLETASK, HAL_idletask());
+  #ifdef HAL_IDLETASK
+    HAL_idletask();
+  #endif
 
   // Check network connection
   TERN_(HAS_ETHERNET, ethernet.check());
@@ -783,7 +772,7 @@ void idle(TERN_(ADVANCED_PAUSE_FEATURE, bool no_stepper_sleep/*=false*/)) {
   #endif
 
   // Update the Průša MMU2
-  TERN_(HAS_PRUSA_MMU2, mmu2.mmu_loop());
+  TERN_(PRUSA_MMU2, mmu2.mmu_loop());
 
   // Handle Joystick jogging
   TERN_(POLL_JOG, joystick.inject_jog_moves());
@@ -791,8 +780,9 @@ void idle(TERN_(ADVANCED_PAUSE_FEATURE, bool no_stepper_sleep/*=false*/)) {
   // Direct Stepping
   TERN_(DIRECT_STEPPING, page_manager.write_responses());
 
-  // Update the LVGL interface
-  TERN_(HAS_TFT_LVGL_UI, LV_TASK_HANDLER());
+  #if HAS_TFT_LVGL_UI
+    LV_TASK_HANDLER();
+  #endif
 }
 
 /**
@@ -990,9 +980,9 @@ void setup() {
     serial_connect_timeout = millis() + 1000UL;
     while (!MYSERIAL1 && PENDING(millis(), serial_connect_timeout)) { /*nada*/ }
   #endif
-  SERIAL_ECHOLNPGM("start");
+  SERIAL_ECHO_MSG("start");
 
-  #if BOTH(HAS_TFT_LVGL_UI, MKS_WIFI_MODULE)
+  #if BOTH(HAS_TFT_LVGL_UI, USE_WIFI_FUNCTION)
     mks_esp_wifi_init();
     WIFISERIAL.begin(WIFI_BAUDRATE);
     serial_connect_timeout = millis() + 1000UL;
@@ -1000,14 +990,6 @@ void setup() {
   #endif
 
   SETUP_RUN(HAL_init());
-
-  // Init and disable SPI thermocouples
-  #if HEATER_0_USES_MAX6675
-    OUT_WRITE(MAX6675_SS_PIN, HIGH);  // Disable
-  #endif
-  #if HEATER_1_USES_MAX6675
-    OUT_WRITE(MAX6675_SS2_PIN, HIGH); // Disable
-  #endif
 
   #if HAS_L64XX
     SETUP_RUN(L64xxManager.init());  // Set up SPI, init drivers
@@ -1119,7 +1101,7 @@ void setup() {
     SETUP_RUN(ethernet.init());
   #endif
 
-  #if HAS_TOUCH_BUTTONS
+  #if HAS_TOUCH_XPT2046
     SETUP_RUN(touch.init());
   #endif
 
@@ -1197,8 +1179,8 @@ void setup() {
     SETUP_RUN(caselight.update_brightness());
   #endif
 
-  #if HAS_PRUSA_MMU1
-    SETUP_LOG("Prusa MMU1");
+  #if ENABLED(MK2_MULTIPLEXER)
+    SETUP_LOG("MK2_MULTIPLEXER");
     SET_OUTPUT(E_MUX0_PIN);
     SET_OUTPUT(E_MUX1_PIN);
     SET_OUTPUT(E_MUX2_PIN);
@@ -1278,7 +1260,7 @@ void setup() {
     SETUP_RUN(test_tmc_connection(true, true, true, true));
   #endif
 
-  #if HAS_PRUSA_MMU2
+  #if ENABLED(PRUSA_MMU2)
     SETUP_RUN(mmu2.init());
   #endif
 
@@ -1315,10 +1297,6 @@ void setup() {
 
   #if ENABLED(PASSWORD_ON_STARTUP)
     SETUP_RUN(password.lock_machine());      // Will not proceed until correct password provided
-  #endif
-
-  #if BOTH(HAS_LCD_MENU, TOUCH_SCREEN_CALIBRATION) && EITHER(TFT_CLASSIC_UI, TFT_COLOR_UI)
-    ui.check_touch_calibration();
   #endif
 
   marlin_state = MF_RUNNING;

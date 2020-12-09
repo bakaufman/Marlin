@@ -507,8 +507,8 @@
   #if ENABLED(PID_PARAMS_PER_HOTEND)
     // Specify between 1 and HOTENDS values per array.
     // If fewer than EXTRUDER values are provided, the last element will be repeated.
-    #define DEFAULT_Kp_LIST {  29.1,  26.54 } //210C
-    #define DEFAULT_Ki_LIST {   2.96,   2.49 }
+    #define DEFAULT_Kp_LIST {  29.1, 26.54 } //210C
+    #define DEFAULT_Ki_LIST {   2.96, 2.49 }
     #define DEFAULT_Kd_LIST { 71.58, 70.6 }
   #else
     #define DEFAULT_Kp  25.50
@@ -576,7 +576,7 @@
  *
  * *** IT IS HIGHLY RECOMMENDED TO LEAVE THIS OPTION ENABLED! ***
  */
-//#define PREVENT_COLD_EXTRUSION //BAK temp
+#define PREVENT_COLD_EXTRUSION //BAK temp
 #define EXTRUDE_MINTEMP 170
 
 /**
@@ -1004,7 +1004,7 @@
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 10
+#define PROBING_MARGIN 5
 
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_SPEED (133*60)
@@ -1137,7 +1137,7 @@
 
 // The size of the print bed
 #define X_BED_SIZE 290 //BAK from railcore.org - check needs more verification
-#define Y_BED_SIZE 290
+#define Y_BED_SIZE 286
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
@@ -1338,7 +1338,7 @@
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 6 //BAK
+  #define GRID_MAX_POINTS_X 5 //BAK
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Probe along the Y axis, advancing X after each column

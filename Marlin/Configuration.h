@@ -300,7 +300,7 @@
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
-#define HOTEND_OFFSET_X { 0.0, -1.0 } // (mm) relative X-offset for each nozzle BAK check
+#define HOTEND_OFFSET_X { 0.0, 0 } // (mm) relative X-offset for each nozzle BAK check
 #define HOTEND_OFFSET_Y { 0.0, 20.00 }  // (mm) relative Y-offset for each nozzle
 #define HOTEND_OFFSET_Z { 0.0, 0.00 }  // (mm) relative Z-offset for each nozzle
 
@@ -1004,7 +1004,7 @@
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 5
+#define PROBING_MARGIN 2
 
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_SPEED (133*60)
@@ -1144,7 +1144,7 @@
 #define Y_MIN_POS 0
 #define Z_MIN_POS -4 //BAK
 #define X_MAX_POS 290 //BAK
-#define Y_MAX_POS 290 //BAK
+#define Y_MAX_POS 286 //BAK
 #define Z_MAX_POS 310 //BAK
 
 /**
@@ -1338,7 +1338,7 @@
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 5 //BAK
+  #define GRID_MAX_POINTS_X 4 //BAK
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Probe along the Y axis, advancing X after each column
@@ -1451,7 +1451,7 @@
 #define Z_SAFE_HOMING //BAK
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT (((X_BED_SIZE) / 2) -10)   // X point for Z homing when homing all axes (G28).
+  #define Z_SAFE_HOMING_X_POINT (((X_BED_SIZE) / 2) -15)   // X point for Z homing when homing all axes (G28).
   #define Z_SAFE_HOMING_Y_POINT ((Y_BED_SIZE) / 2)    // Y point for Z homing when homing all axes (G28).
 #endif
 

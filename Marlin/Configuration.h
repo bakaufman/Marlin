@@ -301,8 +301,8 @@
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
 #define HOTEND_OFFSET_X { 0.0, 1.0 } // (mm) relative X-offset for each nozzle BAK check
-#define HOTEND_OFFSET_Y { 0.0, 25.0 }  // (mm) relative Y-offset for each nozzle
-#define HOTEND_OFFSET_Z { 0.0, 0.00 }  // (mm) relative Z-offset for each nozzle
+#define HOTEND_OFFSET_Y { 0.0, 26.0 }  // (mm) relative Y-offset for each nozzle
+#define HOTEND_OFFSET_Z { 0.0, .05 }  // (mm) relative Z-offset for each nozzle
 
 // @section machine
 
@@ -1017,13 +1017,13 @@
 #define PROBING_MARGIN 2
 
 // X and Y axis travel speed (mm/min) between probes
-#define XY_PROBE_SPEED (160*60) // (133*60)150*60) 
+#define XY_PROBE_SPEED (175*60) // (133*60)150*60)(160*60) 
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
 
 // Feedrate (mm/min) for the "accurate" probe of each point
-#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
+#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)  // BAK /2 when 4, so this is still faster
 
 /**
  * Multiple Probing
@@ -1051,7 +1051,7 @@
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_DEPLOY_PROBE   8 // Z Clearance for Deploy/Stow
 #define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
 #define Z_CLEARANCE_MULTI_PROBE     5 // Z Clearance between multiple probes
 #define Z_AFTER_PROBING           10 // Z position after probing is done
@@ -1059,8 +1059,8 @@
 #define Z_PROBE_LOW_POINT          -12 // Farthest distance below the trigger-point to go before stopping //BAK
 
 // For M851 give a range for adjusting the Z probe offset
-#define Z_PROBE_OFFSET_RANGE_MIN -20
-#define Z_PROBE_OFFSET_RANGE_MAX 20
+#define Z_PROBE_OFFSET_RANGE_MIN -15 //BAK -20
+#define Z_PROBE_OFFSET_RANGE_MAX 15 //BAK20
 
 // Enable the M48 repeatability test to test probe accuracy
 #define Z_MIN_PROBE_REPEATABILITY_TEST //BAK
@@ -1135,7 +1135,7 @@
 #define Z_HOMING_HEIGHT  4      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...BAK
                                   // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
 
-//#define Z_AFTER_HOMING  10      // (mm) Height to move to after homing Z
+#define Z_AFTER_HOMING  10      // (mm) Height to move to after homing Z BAK 20201213 to get consistency
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
@@ -1461,13 +1461,13 @@
 #define Z_SAFE_HOMING //BAK
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT (((X_BED_SIZE) / 2) -15)   // X point for Z homing when homing all axes (G28).
-  #define Z_SAFE_HOMING_Y_POINT ((Y_BED_SIZE) / 2)    // Y point for Z homing when homing all axes (G28).
+  #define Z_SAFE_HOMING_X_POINT (((X_BED_SIZE) / 2) -15)   // X point for Z homing when homing all axes (G28). BAK
+  #define Z_SAFE_HOMING_Y_POINT (((Y_BED_SIZE) / 2) -5)   // Y point for Z homing when homing all axes (G28). BAK 20201213
 #endif
 
 // Homing speeds (mm/m)
-#define HOMING_FEEDRATE_XY (70*60) //BAK (50*60, 40*60)(60*60)
-#define HOMING_FEEDRATE_Z  (7*60) //BAK (4*60) (5*60)(6*60)
+#define HOMING_FEEDRATE_XY (75*60) //BAK (50*60, 40*60)(60*60)(70*60)
+#define HOMING_FEEDRATE_Z  (8*60) //BAK (4*60) (5*60)(6*60)(7*60)
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS

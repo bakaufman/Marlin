@@ -300,8 +300,8 @@
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
-#define HOTEND_OFFSET_X { 0.0, 0 } // (mm) relative X-offset for each nozzle BAK check
-#define HOTEND_OFFSET_Y { 0.0, 20.00 }  // (mm) relative Y-offset for each nozzle
+#define HOTEND_OFFSET_X { 0.0, 1.05 } // (mm) relative X-offset for each nozzle BAK check
+#define HOTEND_OFFSET_Y { 0.0, 25.50 }  // (mm) relative Y-offset for each nozzle
 #define HOTEND_OFFSET_Z { 0.0, 0.00 }  // (mm) relative Z-offset for each nozzle
 
 // @section machine
@@ -1017,7 +1017,7 @@
 #define PROBING_MARGIN 2
 
 // X and Y axis travel speed (mm/min) between probes
-#define XY_PROBE_SPEED (133*60)
+#define XY_PROBE_SPEED (150*60) // (133*60)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
@@ -1466,8 +1466,8 @@
 #endif
 
 // Homing speeds (mm/m)
-#define HOMING_FEEDRATE_XY (50*60) //BAK (50*60, 40*60))
-#define HOMING_FEEDRATE_Z  (5*60) //BAK (4*60)
+#define HOMING_FEEDRATE_XY (60*60) //BAK (50*60, 40*60))
+#define HOMING_FEEDRATE_Z  (6*60) //BAK (4*60) (5*60)
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS

@@ -300,7 +300,7 @@
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
-#define HOTEND_OFFSET_X { 0.0, 1.0 } // (mm) relative X-offset for each nozzle BAK check
+#define HOTEND_OFFSET_X { 0.0, 1.1 } // (mm) relative X-offset for each nozzle BAK check
 #define HOTEND_OFFSET_Y { 0.0, 26.0 }  // (mm) relative Y-offset for each nozzle
 #define HOTEND_OFFSET_Z { 0.0, .05 }  // (mm) relative Z-offset for each nozzle
 
@@ -1348,7 +1348,7 @@
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 4 //BAK
+  #define GRID_MAX_POINTS_X 2 //BAK
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Probe along the Y axis, advancing X after each column
@@ -1466,7 +1466,7 @@
 #endif
 
 // Homing speeds (mm/m)
-#define HOMING_FEEDRATE_XY (75*60) //BAK (50*60, 40*60)(60*60)(70*60)
+#define HOMING_FEEDRATE_XY (100*60) //BAK (50*60, 40*60)(60*60)(70*60)(75*60)
 #define HOMING_FEEDRATE_Z  (8*60) //BAK (4*60) (5*60)(6*60)(7*60)
 
 // Validate that endstops are triggered on homing moves

@@ -132,7 +132,7 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Dual ZL"
+#define CUSTOM_MACHINE_NAME "RC2 ZL Dual"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -300,9 +300,9 @@
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
-#define HOTEND_OFFSET_X { 0.0, 1.1 } // (mm) relative X-offset for each nozzle BAK check
+#define HOTEND_OFFSET_X { 0.0, 0.0 } // (mm) relative X-offset for each nozzle BAK check
 #define HOTEND_OFFSET_Y { 0.0, 26.0 }  // (mm) relative Y-offset for each nozzle
-#define HOTEND_OFFSET_Z { 0.0, .05 }  // (mm) relative Z-offset for each nozzle
+#define HOTEND_OFFSET_Z { 0.0, 0.0 }  // (mm) relative Z-offset for each nozzle
 
 // @section machine
 
@@ -1010,7 +1010,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 0, 51, -2.65 } //BAK guess -10,-10, 0, but using railcore
+#define NOZZLE_TO_PROBE_OFFSET { 0, 51, -2.65 } //BAK 
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.

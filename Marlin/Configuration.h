@@ -1010,11 +1010,11 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 0, 51, -2.65 } //BAK 
+#define NOZZLE_TO_PROBE_OFFSET { 0, 50.5, -2.65 } //BAK 
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 2
+#define PROBING_MARGIN 0
 
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_SPEED (175*60) // (133*60)150*60)(160*60) 
@@ -1477,7 +1477,7 @@
 #endif
 
 // Homing speeds (mm/m)
-#define HOMING_FEEDRATE_XY (80*60) //BAK (50*60, 40*60)(60*60)(70*60)(75*60)
+#define HOMING_FEEDRATE_XY (90*60) //BAK (50*60, 40*60)(60*60)(70*60)(75*60)
 #define HOMING_FEEDRATE_Z  (8*60) //BAK (4*60) (5*60)(6*60)(7*60)
 
 // Validate that endstops are triggered on homing moves

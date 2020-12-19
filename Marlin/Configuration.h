@@ -1020,7 +1020,7 @@
 #define XY_PROBE_SPEED (175*60) // (133*60)150*60)(160*60) 
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
+#define Z_PROBE_SPEED_FAST (4*60)
 
 // Feedrate (mm/min) for the "accurate" probe of each point
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)  // BAK /2 when 4, so this is still faster
@@ -1476,9 +1476,8 @@
   #define Z_SAFE_HOMING_Y_POINT (((Y_BED_SIZE) / 2) -10)   // Y point for Z homing when homing all axes (G28). BAK 20201213
 #endif
 
-// Homing speeds (mm/m)
-#define HOMING_FEEDRATE_XY (90*60) //BAK (50*60, 40*60)(60*60)(70*60)(75*60)
-#define HOMING_FEEDRATE_Z  (8*60) //BAK (4*60) (5*60)(6*60)(7*60)
+// Homing speeds (mm/min)
+#define HOMING_FEEDRATE_MM_M { (90*60), (90*60), (8*60) }
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS

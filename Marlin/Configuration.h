@@ -300,9 +300,9 @@
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
-#define HOTEND_OFFSET_X { 0.0, 0.0 } // (mm) relative X-offset for each nozzle BAK check
-#define HOTEND_OFFSET_Y { 0.0, 26.1 }  // (mm) relative Y-offset for each nozzle
-#define HOTEND_OFFSET_Z { 0.0, 0.0 }  // (mm) relative Z-offset for each nozzle
+#define HOTEND_OFFSET_X { 0.0, 0.55 } // (mm) relative X-offset for each nozzle BAK check
+#define HOTEND_OFFSET_Y { 0.0, 26.05 }  // (mm) relative Y-offset for each nozzle
+#define HOTEND_OFFSET_Z { 0.0, 0.02 }  // (mm) relative Z-offset for each nozzle
 
 // @section machine
 

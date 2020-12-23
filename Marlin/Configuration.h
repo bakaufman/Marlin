@@ -775,7 +775,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1750, 1750, 250, 1500, 1500 } //BAK ok based on JohnOFC xy-1750, z=250 watch for belt slip
+#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 250, 1500, 1500 } //BAK ok based on JohnOFC xy-1750, z=250 watch for belt slip 1750, 1750, 250, 1500, 1500
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -790,9 +790,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves BAK 1000
-#define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts BAK previously 500
-#define DEFAULT_TRAVEL_ACCELERATION   1000    // X, Y, Z acceleration for travel (non printing) moves BAKn 1000
+#define DEFAULT_ACCELERATION          3000   // X, Y, Z and E acceleration for printing moves BAK 1000
+#define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts BAK previously 500
+#define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves BAKn 1000
 
 /**
  * Default Jerk limits (mm/s)
@@ -826,7 +826,7 @@
  *   https://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.013 // (mm) Distance from real junction edge
+  #define JUNCTION_DEVIATION_MM 0.0 // (mm) Distance from real junction edge 0.013
   #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
                                       // for small segments (< 1mm) with large junction angles (> 135°).
 #endif

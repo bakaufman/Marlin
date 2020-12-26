@@ -300,9 +300,9 @@
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
-#define HOTEND_OFFSET_X { 0.0, 0.55 } // (mm) relative X-offset for each nozzle BAK check
-#define HOTEND_OFFSET_Y { 0.0, 26.05 }  // (mm) relative Y-offset for each nozzle
-#define HOTEND_OFFSET_Z { 0.0, 0.02 }  // (mm) relative Z-offset for each nozzle
+#define HOTEND_OFFSET_X { 0.0, 0.5 } // (mm) relative X-offset for each nozzle BAK check
+#define HOTEND_OFFSET_Y { 0.0, 26.0 }  // (mm) relative Y-offset for each nozzle
+#define HOTEND_OFFSET_Z { 0.0, -0.1 }  // (mm) relative Z-offset for each nozzle
 
 // @section machine
 
@@ -775,7 +775,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 250, 1500, 1500 } //BAK ok based on JohnOFC xy-1750, z=250 watch for belt slip 1750, 1750, 250, 1500, 1500
+#define DEFAULT_MAX_ACCELERATION      { 1250, 1400, 250, 1500, 1500 } //BAK ok based on JohnOFC xy-1750, z=250 watch for belt slip 1750, 1750, 250, 1500, 1500, tested 1400 on dual
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -790,9 +790,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          3000   // X, Y, Z and E acceleration for printing moves BAK 1000
-#define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts BAK previously 500
-#define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves BAKn 1000
+#define DEFAULT_ACCELERATION          1500   // X, Y, Z and E acceleration for printing moves BAK 1000
+#define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts BAK previously 500
+#define DEFAULT_TRAVEL_ACCELERATION   1500    // X, Y, Z acceleration for travel (non printing) moves BAKn 1000
 
 /**
  * Default Jerk limits (mm/s)
@@ -826,7 +826,7 @@
  *   https://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.013 // (mm) Distance from real junction edge 0.013
+  #define JUNCTION_DEVIATION_MM 0.018 // (mm) Distance from real junction edge 0.013
   #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
                                       // for small segments (< 1mm) with large junction angles (> 135°).
 #endif
@@ -1010,7 +1010,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 0, 50.5, -2.9 } //BAK 
+#define NOZZLE_TO_PROBE_OFFSET { 0, 50.5, -3.22 } //BAK 
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.

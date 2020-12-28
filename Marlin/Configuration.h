@@ -775,7 +775,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1290, 1200, 250, 1500, 1500 } //BAK ok based on JohnOFC xy-1750, z=250 watch for belt slip 1750, 1750, 250, 1500, 1500, tested 1400 on dual
+#define DEFAULT_MAX_ACCELERATION      { 1750, 1750, 250, 1500, 1500 } //BAK ok based on JohnOFC xy-1750, z=250 watch for belt slip 1750, 1750, 250, 1500, 1500, tested 1400 on dual
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -790,9 +790,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          1400   // X, Y, Z and E acceleration for printing moves BAK 1000
-#define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts BAK previously 500
-#define DEFAULT_TRAVEL_ACCELERATION   1500    // X, Y, Z acceleration for travel (non printing) moves BAKn 1000
+#define DEFAULT_ACCELERATION          1750   // X, Y, Z and E acceleration for printing moves BAK 1000 Look to slicer for better control
+#define DEFAULT_RETRACT_ACCELERATION  1750    // E acceleration for retracts BAK previously 500
+#define DEFAULT_TRAVEL_ACCELERATION   1750    // X, Y, Z acceleration for travel (non printing) moves BAKn 1000
 
 /**
  * Default Jerk limits (mm/s)

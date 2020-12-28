@@ -300,9 +300,9 @@
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
-#define HOTEND_OFFSET_X { 0.0, 0.45 } // (mm) relative X-offset for each nozzle BAK check
+#define HOTEND_OFFSET_X { 0.0, 0.4 } // (mm) relative X-offset for each nozzle BAK check
 #define HOTEND_OFFSET_Y { 0.0, 26.1 }  // (mm) relative Y-offset for each nozzle
-#define HOTEND_OFFSET_Z { 0.0, -0.1 }  // (mm) relative Z-offset for each nozzle
+#define HOTEND_OFFSET_Z { 0.0, 0.0 }  // (mm) relative Z-offset for each nozzle
 
 // @section machine
 
@@ -775,7 +775,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1250, 1400, 250, 1500, 1500 } //BAK ok based on JohnOFC xy-1750, z=250 watch for belt slip 1750, 1750, 250, 1500, 1500, tested 1400 on dual
+#define DEFAULT_MAX_ACCELERATION      { 1290, 1200, 250, 1500, 1500 } //BAK ok based on JohnOFC xy-1750, z=250 watch for belt slip 1750, 1750, 250, 1500, 1500, tested 1400 on dual
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1205,7 +1205,7 @@
 #if ENABLED(MIN_SOFTWARE_ENDSTOPS)
   #define MIN_SOFTWARE_ENDSTOP_X
   #define MIN_SOFTWARE_ENDSTOP_Y
-  #define MIN_SOFTWARE_ENDSTOP_Z
+ // #define MIN_SOFTWARE_ENDSTOP_Z
 #endif
 
 // Max software endstops constrain movement within maximum coordinate bounds

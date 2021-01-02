@@ -26,9 +26,16 @@
 #include "tft_color.h"
 #include "tft_string.h"
 #include "tft_image.h"
-#include "tft_io.h"
+#include "../tft_io/tft_io.h"
 
 #include "../../inc/MarlinConfig.h"
+
+#if ENABLED(TFT_INTERFACE_FSMC_8BIT)
+  // When we have a 8 bit interface, we need to invert the bytes of the color
+  #define ENDIAN_COLOR(C) (((C) >> 8) | ((C) << 8))
+#else
+  #define ENDIAN_COLOR(C) (C)
+#endif
 
 #if HAS_UI_320x240
   #define TFT_WIDTH         320
@@ -38,20 +45,6 @@
   #define TFT_HEIGHT        320
 #else
   #error "Unsupported display resolution!"
-#endif
-
-#define ST7735          0x89F0
-#define ST7789          0x8552
-#define ST7796          0x7796
-#define R61505          0x1505
-#define ILI9328         0x9328
-#define ILI9341         0x9341
-#define ILI9488         0x9488
-#define LERDGE_ST7796   0xFFFE
-#define AUTO            0xFFFF
-
-#ifndef TFT_DRIVER
-  #define TFT_DRIVER    AUTO
 #endif
 
 #ifndef TFT_BUFFER_SIZE
@@ -71,14 +64,8 @@
   #error "TFT_BUFFER_SIZE can not exceed 65535"
 #endif
 
-#define ESC_REG(x)        0xFFFF, 0x00FF & (uint16_t)x
-#define ESC_DELAY(x)      0xFFFF, 0x8000 | (x & 0x7FFF)
-#define ESC_END           0xFFFF, 0x7FFF
-#define ESC_FFFF          0xFFFF, 0xFFFF
-
 class TFT {
   private:
-    static uint32_t lcd_id;
     static TFT_String string;
     static TFT_IO io;
 
@@ -91,13 +78,11 @@ class TFT {
     static inline void set_font(const uint8_t *Font) { string.set_font(Font); }
     static inline void add_glyphs(const uint8_t *Font) { string.add_glyphs(Font); }
 
-    static void set_window(uint16_t Xmin, uint16_t Ymin, uint16_t Xmax, uint16_t Ymax);
-    static void write_esc_sequence(const uint16_t *Sequence);
-
     static inline bool is_busy() { return io.isBusy(); }
     static inline void abort() { io.Abort(); }
     static inline void write_multiple(uint16_t Data, uint16_t Count) { io.WriteMultiple(Data, Count); }
     static inline void write_sequence(uint16_t *Data, uint16_t Count) { io.WriteSequence(Data, Count); }
+    static inline void set_window(uint16_t Xmin, uint16_t Ymin, uint16_t Xmax, uint16_t Ymax) { io.set_window(Xmin, Ymin, Xmax, Ymax); }
 
     static inline void fill(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color) { queue.fill(x, y, width, height, color); }
     static inline void canvas(uint16_t x, uint16_t y, uint16_t width, uint16_t height) { queue.canvas(x, y, width, height); }

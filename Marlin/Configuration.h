@@ -2088,7 +2088,7 @@
 // RepRapDiscount FULL GRAPHIC Smart Controller
 // https://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
 //
-#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER //BAK
+//#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER //BAK off now
 
 //
 // ReprapWorld Graphical LCD

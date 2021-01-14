@@ -507,13 +507,16 @@
   #if ENABLED(PID_PARAMS_PER_HOTEND)
     // Specify between 1 and HOTENDS values per array.
     // If fewer than EXTRUDER values are provided, the last element will be repeated.
-    #define DEFAULT_Kp_LIST {  29.1, 26.54 } //210C
-    #define DEFAULT_Ki_LIST {   2.96, 2.49 }
-    #define DEFAULT_Kd_LIST { 71.58, 70.6 }
+    //#define DEFAULT_Kp_LIST {  29.1, 26.54 } //210C PLA
+    //#define DEFAULT_Ki_LIST {   2.96, 2.49 }
+    //#define DEFAULT_Kd_LIST { 71.58, 70.6 }
+    #define DEFAULT_Kp_LIST {  31.15, 31.15 } //245 PETG (applied twice)
+    #define DEFAULT_Ki_LIST {   3.48, 3.48 }
+    #define DEFAULT_Kd_LIST { 69.77, 69.77 }
   #else
-    #define DEFAULT_Kp  25.50
-    #define DEFAULT_Ki   2.28
-    #define DEFAULT_Kd 71.40
+    #define DEFAULT_Kp  31.15
+    #define DEFAULT_Ki   3.48
+    #define DEFAULT_Kd 69.77
   #endif
 #endif // PIDTEMP
 
@@ -552,9 +555,9 @@
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 28.66 //BAK RC2 85C 2x 20200712
-  #define DEFAULT_bedKi 1.20
-  #define DEFAULT_bedKd 457.05
+  #define DEFAULT_bedKp 28.03 //BAK RC2 85C 20210113
+  #define DEFAULT_bedKi 1.23
+  #define DEFAULT_bedKd 427.57
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -775,7 +778,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1750, 1750, 250, 1500, 1500 } //BAK ok based on JohnOFC xy-1750, z=250 watch for belt slip 1750, 1750, 250, 1500, 1500, tested 1400 on dual
+#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 250, 1500, 1500 } //BAK ok based on JohnOFC xy-1750, z=250 watch for belt slip 1750, 1750, 250, 1500, 1500, tested 1400 on dual (fix xy)
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -790,9 +793,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          1750   // X, Y, Z and E acceleration for printing moves BAK 1000 Look to slicer for better control
-#define DEFAULT_RETRACT_ACCELERATION  1750    // E acceleration for retracts BAK previously 500
-#define DEFAULT_TRAVEL_ACCELERATION   1750    // X, Y, Z acceleration for travel (non printing) moves BAKn 1000
+#define DEFAULT_ACCELERATION          3000   // X, Y, Z and E acceleration for printing moves BAK 1000 Look to slicer for better control
+#define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts BAK previously 500, then 1750 but audible
+#define DEFAULT_TRAVEL_ACCELERATION   1750    // X, Y, Z acceleration for travel (non printing) moves BAK 1000 (3000)
 
 /**
  * Default Jerk limits (mm/s)

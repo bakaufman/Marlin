@@ -703,8 +703,8 @@
 #define Z2_DRIVER_TYPE TMC2209
 #define Z3_DRIVER_TYPE TMC2209
 //#define Z4_DRIVER_TYPE A4988
-#define E0_DRIVER_TYPE TMC2130 //BAK
-#define E1_DRIVER_TYPE TMC2130 //BAK
+#define E0_DRIVER_TYPE TMC2209 //BAK 20210119
+#define E1_DRIVER_TYPE TMC2209 //BAK
 //#define E2_DRIVER_TYPE A4988
 //#define E3_DRIVER_TYPE A4988
 //#define E4_DRIVER_TYPE A4988
@@ -1008,7 +1008,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 0, 50.5, -3.16 } //BAK 
+#define NOZZLE_TO_PROBE_OFFSET { 0, 50.5, -3.15 } //BAK 
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.

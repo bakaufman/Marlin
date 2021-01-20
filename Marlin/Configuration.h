@@ -510,9 +510,9 @@
     //#define DEFAULT_Kp_LIST {  29.1, 26.54 } //210C PLA
     //#define DEFAULT_Ki_LIST {   2.96, 2.49 }
     //#define DEFAULT_Kd_LIST { 71.58, 70.6 }
-    #define DEFAULT_Kp_LIST {  31.15, 31.15 } //245 PETG (applied twice)
-    #define DEFAULT_Ki_LIST {   3.48, 3.48 }
-    #define DEFAULT_Kd_LIST { 69.77, 69.77 }
+    #define DEFAULT_Kp_LIST {  31.15, 28.13 } //245 PETG BAK
+    #define DEFAULT_Ki_LIST {   3.48, 2.81 }
+    #define DEFAULT_Kd_LIST { 69.77, 70.33 }
   #else
     #define DEFAULT_Kp  31.15
     #define DEFAULT_Ki   3.48
@@ -1638,12 +1638,12 @@
 // Preheat Constants
 #define PREHEAT_1_LABEL       "PLA" //BAK
 #define PREHEAT_1_TEMP_HOTEND 210
-#define PREHEAT_1_TEMP_BED     50
+#define PREHEAT_1_TEMP_BED     60
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
 #define PREHEAT_2_LABEL       "PETG" //BAK
 #define PREHEAT_2_TEMP_HOTEND 240
-#define PREHEAT_2_TEMP_BED    90
+#define PREHEAT_2_TEMP_BED    75
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 
 /**

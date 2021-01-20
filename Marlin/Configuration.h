@@ -142,7 +142,7 @@
 
 // This defines the number of extruders
 // :[0, 1, 2, 3, 4, 5, 6, 7, 8]
-#define EXTRUDERS 2 //BAK
+#define EXTRUDERS 1 //BAK 20210119 turned of E1
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
@@ -409,7 +409,7 @@
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
 #define TEMP_SENSOR_0 5 //BAK
-#define TEMP_SENSOR_1 5 //BAK 
+//#define TEMP_SENSOR_1 5 //BAK BAK E1 turned off 20210119 
 //#define TEMP_SENSOR_2 0
 //#define TEMP_SENSOR_3 0
 //#define TEMP_SENSOR_4 0
@@ -482,7 +482,7 @@
 #if ENABLED(PIDTEMP)
   #define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
   #define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM) BAK
-  #define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
+  //#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders) BAK turned off E1 20210119
                                   // Set/get with gcode: M301 E[extruder number, 0-2]
   #define PID_FUNCTIONAL_RANGE 10 // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
@@ -704,7 +704,7 @@
 #define Z3_DRIVER_TYPE TMC2209
 //#define Z4_DRIVER_TYPE A4988
 #define E0_DRIVER_TYPE TMC2209 //BAK 20210119
-#define E1_DRIVER_TYPE TMC2209 //BAK
+//#define E1_DRIVER_TYPE TMC2209 //BAK 20210119
 //#define E2_DRIVER_TYPE A4988
 //#define E3_DRIVER_TYPE A4988
 //#define E4_DRIVER_TYPE A4988
@@ -758,14 +758,14 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 200.6, 200.6, 1600, 828.5, 828.5 } //BAK 80, 80, 4000, 500, railcore says 201.5 for xy possible, prev z 820.1
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 200.6, 200.6, 1600, 828.5} //BAK 80, 80, 4000, 500, railcore says 201.5 for xy possible, prev z 820.1 bak 20210119 removed E1
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25, 25 }
+#define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25} //BAK 20210119 removed E1
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -778,7 +778,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 250, 1500, 1500 } //BAK ok based on JohnOFC xy-1750, z=250 watch for belt slip 1750, 1750, 250, 1500, 1500, tested 1400 on dual (fix xy)
+#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 250, 1500 } //BAK ok based on JohnOFC xy-1750, z=250 watch for belt slip 1750, 1750, 250, 1500, 1500, tested 1400 on dual (fix xy) BAK removed E1 20210119
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)

@@ -1688,7 +1688,7 @@
 
   #define BABYSTEP_ZPROBE_OFFSET          // Combine M851 Z and Babystepping BAK
   #if ENABLED(BABYSTEP_ZPROBE_OFFSET)
-    #define BABYSTEP_HOTEND_Z_OFFSET      // For multiple hotends, babystep relative Z offsets BAK
+    //#define BABYSTEP_HOTEND_Z_OFFSET      // For multiple hotends, babystep relative Z offsets BAK turn off E1 20210119
     //#define BABYSTEP_ZPROBE_GFX_OVERLAY   // Enable graphical overlay on Z-offset editor
   #endif
 #endif

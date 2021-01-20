@@ -475,7 +475,7 @@
  * the fan will turn on when any selected extruder is above the threshold.
  */
 #define E0_AUTO_FAN_PIN FAN1_PIN //BAK
-#define E1_AUTO_FAN_PIN HEATER_2_PIN //BAK
+//#define E1_AUTO_FAN_PIN HEATER_2_PIN //BAK E1 is turned off 20210119
 #define E2_AUTO_FAN_PIN -1
 #define E3_AUTO_FAN_PIN -1
 #define E4_AUTO_FAN_PIN -1
@@ -2494,7 +2494,7 @@
    * The default SW SPI pins are defined the respective pins files,
    * but you can override or define them here.
    */
-  //#define TMC_USE_SW_SPI//BAK 20210129
+  #define TMC_USE_SW_SPI//BAK 20210129
   //#define TMC_SW_MOSI       -1
   //#define TMC_SW_MISO       -1
   //#define TMC_SW_SCK        -1

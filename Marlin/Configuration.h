@@ -132,7 +132,7 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Dual RC2"
+#define CUSTOM_MACHINE_NAME "Single-dual RC2"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -489,11 +489,6 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
-  // Railcore BAK
-  //#define DEFAULT_Kp 25.50 //BAK 255 Dragon 2x 20200712
-  //#define DEFAULT_Ki 2.28 //BAK
- // #define DEFAULT_Kd 71.40 //BAK
-
   // MakerGear
   //#define DEFAULT_Kp 7.0
   //#define DEFAULT_Ki 0.1
@@ -751,7 +746,7 @@
  * following movement settings. If fewer factors are given than the
  * total number of extruders, the last value applies to the rest.
  */
-#define DISTINCT_E_FACTORS //BAK until I get another BMG running
+//#define DISTINCT_E_FACTORS //BAK until I get another BMG running BAK 20210119 E1 turned off
 
 /**
  * Default Axis Steps Per Unit (steps/mm)

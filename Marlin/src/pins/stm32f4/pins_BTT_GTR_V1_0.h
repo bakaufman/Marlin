@@ -249,8 +249,8 @@
   #define Z3_SERIAL_TX_PIN                  PC12
   #define Z3_SERIAL_RX_PIN                  PC12
 
-  #define E1_SERIAL_TX_PIN                  PG4
-  #define E1_SERIAL_RX_PIN                  PG4
+  //#define E1_SERIAL_TX_PIN                  PG4
+  //#define E1_SERIAL_RX_PIN                  PG4
 
   //#define E4_SERIAL_TX_PIN                  PE15
   //#define E4_SERIAL_RX_PIN                  PE15

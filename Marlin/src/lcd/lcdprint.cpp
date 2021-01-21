@@ -28,6 +28,7 @@
 
 #if HAS_WIRED_LCD
 
+#include "marlinui.h"
 #include "lcdprint.h"
 
 /**

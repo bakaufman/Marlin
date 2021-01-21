@@ -21,6 +21,14 @@
  */
 #pragma once
 
-#if HAS_SPI_TFT || HAS_FSMC_TFT
-  #error "Sorry! TFT displays are not available for HAL/STM32F4_F7."
+#ifdef __cplusplus
+  extern "C" { /* C-declarations for C++ */
+#endif
+
+extern void lv_draw_touch_calibration_screen();
+extern void lv_clear_touch_calibration_screen();
+extern void lv_update_touch_calibration_screen();
+
+#ifdef __cplusplus
+  } /* C-declarations for C++ */
 #endif

@@ -135,12 +135,12 @@
   #define Z2_CS_PIN                          PB5
 #endif
 
-#define E0_STEP_PIN                         PG12
-#define E0_DIR_PIN                          PG11
-#define E0_ENABLE_PIN                       PG13
-#ifndef E0_CS_PIN
-  #define E0_CS_PIN                         PG10
-#endif
+//#define E0_STEP_PIN                         PG12 //BAK moved to M5
+//#define E0_DIR_PIN                          PG11
+//#define E0_ENABLE_PIN                       PG13
+//#ifndef E0_CS_PIN
+//  #define E0_CS_PIN                         PG10
+//#endif
 
 #define Z_STEP_PIN        PD6 //BAK works
 #define Z_DIR_PIN         PD5
@@ -155,41 +155,41 @@
 #ifndef Z3_CS_PIN
   #define Z3_CS_PIN        PC12
 #endif
-
-#define E1_STEP_PIN                         PF3 //BAK E3 for set, jumper out
-#define E1_DIR_PIN                          PG3
-#define E1_ENABLE_PIN                       PF8
-#ifndef E1_CS_PIN
-  #define E1_CS_PIN                         PG4
+//M5
+#define E0_STEP_PIN                         PF3 //BAK M5
+#define E0_DIR_PIN                          PG3
+#define E0_ENABLE_PIN                       PF8
+#ifndef E0_CS_PIN
+  #define E0_CS_PIN                         PG4
 #endif
 
-//#define E4_STEP_PIN                         PD14
-//#define E4_DIR_PIN                          PD11
-//#define E4_ENABLE_PIN                       PG2
-//#ifndef E4_CS_PIN
-//  #define E4_CS_PIN                         PE15
-//#endif
+#define E1_STEP_PIN                         PD14 //BAK M5 now E1
+#define E1_DIR_PIN                          PD11
+#define E1_ENABLE_PIN                       PG2
+#ifndef E1_CS_PIN
+  #define E0_CS_PIN                         PE15
+#endif
 
-//#define E5_STEP_PIN                         PE12
-//#define E5_DIR_PIN                          PE10
-//#define E5_ENABLE_PIN                       PF14
-//#ifndef E5_CS_PIN
-//  #define E5_CS_PIN                         PE7
-//#endif
+#define E5_STEP_PIN                         PE12 //BAK M5
+#define E5_DIR_PIN                          PE10
+#define E5_ENABLE_PIN                       PF14
+#ifndef E5_CS_PIN
+  #define E5_CS_PIN                         PE7
+#endif
 
-//#define E6_STEP_PIN                         PG0
-//#define E6_DIR_PIN                          PG1
-//#define E6_ENABLE_PIN                       PE8
-//#ifndef E6_CS_PIN
-//  #define E6_CS_PIN                         PF15
-//#endif
+#define E6_STEP_PIN                         PG0
+#define E6_DIR_PIN                          PG1
+#define E6_ENABLE_PIN                       PE8
+#ifndef E6_CS_PIN
+  #define E6_CS_PIN                         PF15
+#endif
 
-//#define E7_STEP_PIN                         PH12
-//#define E7_DIR_PIN                          PH15
-//#define E7_ENABLE_PIN                       PI0
-//#ifndef E7_CS_PIN
-//  #define E7_CS_PIN                         PH14
-//#endif
+#define E7_STEP_PIN                         PH12
+#define E7_DIR_PIN                          PH15
+#define E7_ENABLE_PIN                       PI0
+#ifndef E7_CS_PIN
+  #define E7_CS_PIN                         PH14
+#endif
 
 //
 // Software SPI pins for TMC2130 stepper drivers
@@ -240,29 +240,29 @@
   #define Z2_SERIAL_TX_PIN                  PB5 //BAK
   #define Z2_SERIAL_RX_PIN                  PB5 //BAK
 
-  #define E0_SERIAL_TX_PIN                  PG10
-  #define E0_SERIAL_RX_PIN                  PG10
+  //#define E0_SERIAL_TX_PIN                  PG10 BAK Not being used
+  //#define E0_SERIAL_RX_PIN                  PG10
 
   #define Z_SERIAL_TX_PIN                  PD4
   #define Z_SERIAL_RX_PIN                  PD4
 
   #define Z3_SERIAL_TX_PIN                  PC12
   #define Z3_SERIAL_RX_PIN                  PC12
+//M5
+  #define E0_SERIAL_TX_PIN                  PG4 //BAK M5
+  #define E0_SERIAL_RX_PIN                  PG4
 
-  #define E1_SERIAL_TX_PIN                  PG4
-  #define E1_SERIAL_RX_PIN                  PG4
+  #define E1_SERIAL_TX_PIN                  PE15 //BAK M6
+  #define E1_SERIAL_RX_PIN                  PE15
 
-  //#define E4_SERIAL_TX_PIN                  PE15
-  //#define E4_SERIAL_RX_PIN                  PE15
+  #define E5_SERIAL_TX_PIN                  PE7
+  #define E5_SERIAL_RX_PIN                  PE7
 
-  //#define E5_SERIAL_TX_PIN                  PE7
-  //#define E5_SERIAL_RX_PIN                  PE7
+  #define E6_SERIAL_TX_PIN                  PF15
+  #define E6_SERIAL_RX_PIN                  PF15
 
-  //#define E6_SERIAL_TX_PIN                  PF15
-  //#define E6_SERIAL_RX_PIN                  PF15
-
-  //#define E7_SERIAL_TX_PIN                  PH14
-  //#define E7_SERIAL_RX_PIN                  PH14
+  #define E7_SERIAL_TX_PIN                  PH14
+  #define E7_SERIAL_RX_PIN                  PH14
 
   // Reduce baud rate to improve software serial reliability
   #define TMC_BAUD_RATE                    19200
@@ -270,16 +270,16 @@
 
 //
 // Temperature Sensors
-//
+//GTR
 #define TEMP_0_PIN                          PC1   // T1 <-> E0
 #define TEMP_1_PIN                          PC2   // T2 <-> E1
 #define TEMP_2_PIN                          PC3   // T3 <-> E2
-
-//#define TEMP_3_PIN                          PA3   // T4 <-> E3
-//#define TEMP_4_PIN                          PF9   // T5 <-> E4
-//#define TEMP_5_PIN                          PF10  // T6 <-> E5
-//#define TEMP_6_PIN                          PF7   // T7 <-> E6
-//#define TEMP_7_PIN                          PF5   // T8 <-> E7
+//M5
+#define TEMP_3_PIN                          PA3   // T4 <-> E3
+#define TEMP_4_PIN                          PF9   // T5 <-> E4
+#define TEMP_5_PIN                          PF10  // T6 <-> E5
+#define TEMP_6_PIN                          PF7   // T7 <-> E6
+#define TEMP_7_PIN                          PF5   // T8 <-> E7
 
 #define TEMP_BED_PIN                        PC0   // T0 <-> Bed
 
@@ -299,28 +299,28 @@
 
 //
 // Heaters / Fans
-//
+//GTR
 #define HEATER_0_PIN                        PB1   // Heater0
 #define HEATER_1_PIN                        PA1   // Heater1
 #define HEATER_2_PIN                        PB0   // Heater2
-
-//#define HEATER_3_PIN                        PD15  // Heater3 BAK
-//#define HEATER_4_PIN                        PD13  // Heater4 BAK
-//#define HEATER_5_PIN                        PD12  // Heater5 BAK
-//#define HEATER_6_PIN                        PE13  // Heater6 BAK
-//#define HEATER_7_PIN                        PI6   // Heater7 BAK
+//M5
+#define HEATER_3_PIN                        PD15  // Heater3 BAK M5:HEAT1
+#define HEATER_4_PIN                        PD13  // Heater4 BAK
+#define HEATER_5_PIN                        PD12  // Heater5 BAK
+#define HEATER_6_PIN                        PE13  // Heater6 BAK
+#define HEATER_7_PIN                        PI6   // Heater7 BAK
 
 #define HEATER_BED_PIN                      PA2   // Hotbed
-
+//GTR
 #define FAN_PIN            PE5   // Fan0 
 #define FAN1_PIN           PE6   // Fan1 
 #define FAN2_PIN           PC8   // Fan2
-
-//#define FAN3_PIN                            PI5   // Fan3
-//#define FAN4_PIN                            PE9   // Fan4
-//#define FAN5_PIN                            PE11  // Fan5
-//#define FAN6_PIN                          PC9   // Fan6
-//#define FAN7_PIN                          PE14  // Fan7
+//M5
+#define FAN3_PIN                            PI5   // Fan3 M5:FAN1
+#define FAN4_PIN                            PE9   // Fan4
+#define FAN5_PIN                            PE11  // Fan5
+#define FAN6_PIN                          PC9   // Fan6
+#define FAN7_PIN                          PE14  // Fan7
 
 #ifndef SDCARD_CONNECTION
   #define SDCARD_CONNECTION ONBOARD

@@ -39,9 +39,6 @@
 
 #ifdef USBCON
   #include <USBSerial.h>
-  #include "../../core/serial_hook.h" 
-  typedef ForwardSerial0Type< decltype(SerialUSB) > DefaultSerial;
-  extern DefaultSerial MSerial;
 #endif
 
 // ------------------------
@@ -51,7 +48,7 @@
 #define MSERIAL(X) _MSERIAL(X)
 
 #if SERIAL_PORT == -1
-  #define MYSERIAL0 MSerial
+  #define MYSERIAL0 SerialUSB
 #elif WITHIN(SERIAL_PORT, 1, 6)
   #define MYSERIAL0 MSERIAL(SERIAL_PORT)
 #else
@@ -60,7 +57,7 @@
 
 #ifdef SERIAL_PORT_2
   #if SERIAL_PORT_2 == -1
-    #define MYSERIAL1 MSerial
+    #define MYSERIAL1 SerialUSB
   #elif WITHIN(SERIAL_PORT_2, 1, 6)
     #define MYSERIAL1 MSERIAL(SERIAL_PORT_2)
   #else
@@ -70,7 +67,7 @@
 
 #ifdef MMU2_SERIAL_PORT
   #if MMU2_SERIAL_PORT == -1
-    #define MMU2_SERIAL MSerial
+    #define MMU2_SERIAL SerialUSB
   #elif WITHIN(MMU2_SERIAL_PORT, 1, 6)
     #define MMU2_SERIAL MSERIAL(MMU2_SERIAL_PORT)
   #else
@@ -80,7 +77,7 @@
 
 #ifdef LCD_SERIAL_PORT
   #if LCD_SERIAL_PORT == -1
-    #define LCD_SERIAL MSerial
+    #define LCD_SERIAL SerialUSB
   #elif WITHIN(LCD_SERIAL_PORT, 1, 6)
     #define LCD_SERIAL MSERIAL(LCD_SERIAL_PORT)
   #else
@@ -108,6 +105,14 @@
 
 // On AVR this is in math.h?
 #define square(x) ((x)*(x))
+
+#ifndef strncpy_P
+  #define strncpy_P(dest, src, num) strncpy((dest), (src), (num))
+#endif
+
+// Fix bug in pgm_read_ptr
+#undef pgm_read_ptr
+#define pgm_read_ptr(addr) (*(addr))
 
 // ------------------------
 // Types

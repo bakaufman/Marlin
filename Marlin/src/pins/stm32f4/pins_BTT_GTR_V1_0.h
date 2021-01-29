@@ -317,10 +317,10 @@
 #define FAN2_PIN           PC8   // Fan2
 //M5
 #define FAN3_PIN                            PI5   // Fan3 M5:FAN1
-#define FAN4_PIN                            PE9   // Fan4
-#define FAN5_PIN                            PE11  // Fan5
-#define FAN6_PIN                          PC9   // Fan6
-#define FAN7_PIN                          PE14  // Fan7
+//#define FAN4_PIN                            PE9   // Fan4
+//#define FAN5_PIN                            PE11  // Fan5
+//#define FAN6_PIN                          PC9   // Fan6
+//#define FAN7_PIN                          PE14  // Fan7
 
 #ifndef SDCARD_CONNECTION
   #define SDCARD_CONNECTION ONBOARD

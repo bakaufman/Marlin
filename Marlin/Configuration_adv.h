@@ -751,7 +751,7 @@
   // Define probe X and Y positions for Z1, Z2 [, Z3 [, Z4]]
   // If not defined, probe limits will be used.
   // Override with 'M422 S<index> X<pos> Y<pos>'
-  #define Z_STEPPER_ALIGN_XY { { 1, 278 }, { 1, 50.5 }, { 255, 153 } }//BAK trying to see if limits work 10, 278 and 260, 153
+  #define Z_STEPPER_ALIGN_XY { { 1, 278 }, { 1, 50.5 }, { 289, 130 } }//BAK trying to see if limits work 10, 278 and 260, 153
 
   /**
    * Orientation for the automatically-calculated probe positions.
@@ -783,7 +783,7 @@
     // Define Stepper XY positions for Z1, Z2, Z3 corresponding to
     // the Z screw positions in the bed carriage.
     // Define one position per Z stepper in stepper driver order.
-    #define Z_STEPPER_ALIGN_STEPPER_XY { { -15, 278 }, { -15, 25 }, { 290+46, 153 } }//BAK reversed for coreYX
+    #define Z_STEPPER_ALIGN_STEPPER_XY { { -18, 278 }, { -18, 25 }, { 289+45, 153 } }//BAK reversed for coreYX
   #else
     // Amplification factor. Used to scale the correction step up or down in case
     // the stepper (spindle) position is farther out than the test point.
